@@ -33,7 +33,6 @@
                                 <button type="submit" class="btn btn-danger float-end logout" style="margin-left: 10px;">Çıkış Yap</button>
                                 <!-- <a href="" class="btn btn-danger float-end logout" style="margin-left: 10px;">Çıkış Yap</a>-->
                                 </form>
-                            <a href="{{ url('product/create') }}" class="btn btn-primary float-end">Ürün Ekle</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -61,7 +60,6 @@
                                                 <a href="javascript:void(0)" class="read-more" data-id="{{ $product['id'] }}">devamını oku</a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('product.edit', $product['id']) }}" class="btn btn-success">Düzenle</a>
                                                 <a href="{{ route('product.show', $product['id']) }}" class="btn btn-info">Göster</a>
 
                                                 {{-- <form action="{{ route('product.show', $product['id']) }}" method="GET" class="d-inline">
