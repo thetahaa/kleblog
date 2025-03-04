@@ -34,7 +34,7 @@ class LoginController extends Controller
             ], 404); 
         } 
      
-        if (Hash::check($request->password, $user->password)) { 
+        if (!Hash::check($request->password, $user->password)) { 
             return response()->json([ 
                 'message' => 'Şifre eşleşmiyor.' 
             ], 401); 
@@ -65,14 +65,6 @@ class LoginController extends Controller
             ],401);
         }
     }
-    // public function logout(Request $request) {
-    //     Auth::logout();
-    //     $request->session()->invalidate();
-    //     $request->session()->regenerateToken();
-    
-    //     // Çıkış yaptıktan sonra yönlendirme
-    //     return redirect('http://localhost:8003');
-    // }
 
     public function profile(Request $request)
     {

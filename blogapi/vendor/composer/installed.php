@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '50c09538b3448c34c5f6ac2db906b8091df51816',
+        'reference' => '960c219daf6cbaded4fd31d6a050de839632f5c8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -532,6 +532,12 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'jfvoliveira/blade-boxicons' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '1.1.2',
+            ),
+        ),
         'kirschbaum-development/eloquent-power-joins' => array(
             'pretty_version' => '4.2.0',
             'version' => '4.2.0.0',
@@ -559,7 +565,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '50c09538b3448c34c5f6ac2db906b8091df51816',
+            'reference' => '960c219daf6cbaded4fd31d6a050de839632f5c8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -706,6 +712,15 @@
             'reference' => '4c66b569cb729ba9b2f4a3c4e79f50fd8f2b71d1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../livewire/livewire',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'mallardduck/blade-boxicons' => array(
+            'pretty_version' => '2.4.0',
+            'version' => '2.4.0.0',
+            'reference' => 'de0d53e6bd08bc21973487e84681b71e2f00b889',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mallardduck/blade-boxicons',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

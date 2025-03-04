@@ -155,6 +155,7 @@ class ComposerStaticInite1520e168a66de5de85d169b22777bdb
             'Monolog\\' => 8,
             'Mockery\\' => 8,
             'Masterminds\\' => 12,
+            'MallardDuck\\BladeBoxicons\\' => 26,
         ),
         'L' => 
         array (
@@ -521,6 +522,10 @@ class ComposerStaticInite1520e168a66de5de85d169b22777bdb
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
+        'MallardDuck\\BladeBoxicons\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mallardduck/blade-boxicons/src',
+        ),
         'Livewire\\' => 
         array (
             0 => __DIR__ . '/..' . '/livewire/livewire/src',
@@ -752,6 +757,11 @@ class ComposerStaticInite1520e168a66de5de85d169b22777bdb
         'AnourValar\\EloquentSerialize\\Grammars\\QueryBuilderGrammar' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Grammars/QueryBuilderGrammar.php',
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
+        'App\\Filament\\Resources\\CategoryResource' => __DIR__ . '/../..' . '/app/Filament/Resources/CategoryResource.php',
+        'App\\Filament\\Resources\\CategoryResource\\Pages\\CreateCategory' => __DIR__ . '/../..' . '/app/Filament/Resources/CategoryResource/Pages/CreateCategory.php',
+        'App\\Filament\\Resources\\CategoryResource\\Pages\\EditCategory' => __DIR__ . '/../..' . '/app/Filament/Resources/CategoryResource/Pages/EditCategory.php',
+        'App\\Filament\\Resources\\CategoryResource\\Pages\\ListCategories' => __DIR__ . '/../..' . '/app/Filament/Resources/CategoryResource/Pages/ListCategories.php',
+        'App\\Filament\\Resources\\CategoryResource\\Pages\\ViewCategory' => __DIR__ . '/../..' . '/app/Filament/Resources/CategoryResource/Pages/ViewCategory.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -759,7 +769,10 @@ class ComposerStaticInite1520e168a66de5de85d169b22777bdb
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Resources\\ProductResource' => __DIR__ . '/../..' . '/app/Http/Resources/ProductResource.php',
+        'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
+        'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\Tag' => __DIR__ . '/../..' . '/app/Models/Tag.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
@@ -5215,6 +5228,7 @@ class ComposerStaticInite1520e168a66de5de85d169b22777bdb
         'Livewire\\WithPagination' => __DIR__ . '/..' . '/livewire/livewire/src/WithPagination.php',
         'Livewire\\WithoutUrlPagination' => __DIR__ . '/..' . '/livewire/livewire/src/WithoutUrlPagination.php',
         'Livewire\\Wrapped' => __DIR__ . '/..' . '/livewire/livewire/src/Wrapped.php',
+        'MallardDuck\\BladeBoxicons\\BladeBoxiconsServiceProvider' => __DIR__ . '/..' . '/mallardduck/blade-boxicons/src/BladeBoxiconsServiceProvider.php',
         'Masterminds\\HTML5' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5.php',
         'Masterminds\\HTML5\\Elements' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Elements.php',
         'Masterminds\\HTML5\\Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Entities.php',
