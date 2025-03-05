@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +14,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+
+
 
 class PostResource extends Resource
 {
@@ -24,14 +29,31 @@ class PostResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
-                    ->label('Title')
+                    ->label('Başlık')
                     ->required()
                     ->maxLength(255),
                 
                 Forms\Components\Textarea::make('content')
-                    ->label('Content')
+                    ->label('İçerik')
                     ->required()
                     ->maxLength(10000),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->disk('public')
+                    ->directory('posts')
+                    ->image()
+                    ->required()
+                    ->maxSize(1024)
+                    ->image(),
+                Forms\Components\MultiSelect::make('categories')
+                    ->label('Kategoriler')
+                    ->options(Category::all()->pluck('name', 'id'))
+                    ->required(),
+
+                Forms\Components\MultiSelect::make('tags')
+                    ->label('Etiketler')
+                    ->options(Tag::all()->pluck('name', 'id'))
+                    ->required(),
             ]);
     }
 
@@ -39,22 +61,22 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label('Title')
-                    ->searchable(),
-                
-                Tables\Columns\TextColumn::make('content')
-                    ->label('Content')
-                    ->limit(50),
+                Tables\Columns\TextColumn::make('title')->label('Başlık'),
+                Tables\Columns\TextColumn::make('categories.name')->label('Kategoriler'),
+                Tables\Columns\TextColumn::make('tags.name')->label('Etiketler'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Image')
+                    ->disk('public')
+                    ->height(60),
 
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -64,7 +86,7 @@ class PostResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
