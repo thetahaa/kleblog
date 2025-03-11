@@ -45,7 +45,7 @@ class ProductController extends Controller
         );
 
         // Sayfa numarasını Blade'a gönderiyoruz
-        return view('product.index', [
+        return view('post.index', [
             'products' => $productsPaginated,
             'page' => $currentPage  // Sayfa numarasını buradan Blade'a geçiyoruz
         ]);
