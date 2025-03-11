@@ -14,6 +14,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ImageColumn;
+
 
 
 
@@ -43,17 +46,16 @@ class PostResource extends Resource
                     ->directory('posts')
                     ->image()
                     ->required()
-                    ->maxSize(1024)
-                    ->image(),
+                    ->maxSize(10240),
                 Forms\Components\MultiSelect::make('categories')
-                    ->label('Kategoriler')
-                    ->options(Category::all()->pluck('name', 'id'))
-                    ->required(),
+                    ->relationship('categories', 'name')
+                    ->preload()
+                    ->label('Kategoriler'),
 
                 Forms\Components\MultiSelect::make('tags')
-                    ->label('Etiketler')
-                    ->options(Tag::all()->pluck('name', 'id'))
-                    ->required(),
+                    ->relationship('tags', 'name')
+                    ->preload()
+                    ->label('Etiketler'),
             ]);
     }
 
@@ -65,7 +67,7 @@ class PostResource extends Resource
                 Tables\Columns\TextColumn::make('categories.name')->label('Kategoriler'),
                 Tables\Columns\TextColumn::make('tags.name')->label('Etiketler'),
                 Tables\Columns\ImageColumn::make('image')
-                    ->label('Image')
+                    ->label('Resim')
                     ->disk('public')
                     ->height(60),
 
