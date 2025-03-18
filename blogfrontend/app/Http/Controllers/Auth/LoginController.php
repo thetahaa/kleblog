@@ -25,7 +25,7 @@ class LoginController extends Controller
         $token = $response['token'];
         session(['token' => $token]);
 
-        return redirect('/product   ', 301, ['Authorization' => $token]);
+        return redirect('/posts   ', 301, ['Authorization' => $token]);
     }
 
     public function logout(Request $request)
