@@ -15,9 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\ImageColumn;
-
-
 
 
 
@@ -41,7 +40,7 @@ class PostResource extends Resource
                     ->required()
                     ->maxLength(10000),
                 Forms\Components\FileUpload::make('image')
-                    ->label('Image')
+                    ->label('Resim')
                     ->disk('public')
                     ->directory('posts')
                     ->image()
@@ -51,6 +50,10 @@ class PostResource extends Resource
                     ->relationship('categories', 'name')
                     ->preload()
                     ->label('Kategoriler'),
+
+                Forms\Components\Toggle::make('status')
+                    ->label('Aktiflik')
+                    ->required(),
 
                 Forms\Components\MultiSelect::make('tags')
                     ->relationship('tags', 'name')
@@ -70,15 +73,16 @@ class PostResource extends Resource
                     ->label('Resim')
                     ->disk('public')
                     ->height(60),
+                Tables\Columns\BooleanColumn::make('status')->label('Aktiflik'),
 
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

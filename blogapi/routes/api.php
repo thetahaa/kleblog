@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
@@ -15,13 +16,14 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/login', [LoginController::class, 'login']);
-Route::post('/products', [ProductController::class, 'products']);
+Route::post('/posts', [PostController::class, 'posts']);
 
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/profile', [LoginController::class, 'profile']);
-    Route::apiResource('products', ProductController::class);
+    Route::get('posts', [PostController::class, 'index']);
+    Route::get('posts/{id}', [PostController::class, 'show']);
 });
 
 Route::get('/welcome', function () {

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('image');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
