@@ -53,15 +53,17 @@
         <div class="grid grid-cols-1 gap-6">
             <article class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
                 <!-- Post Image -->
-                <img src="{{ asset('storage/posts/' . $posts['image']) }}" class="w-full h-56 md:h-64 object-cover">                
+                <img src="{{ ('http://localhost:8000' .'/'.$posts['image']) }}" class="w-full h-56 md:h-64 object-cover">                
                 <!-- Post Content -->
                 <div class="p-4 space-y-4">
                     <!-- Header Section -->
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="inline-block px-2 py-1 bg-gray-700 text-gray-300 text-sm rounded-full mb-2">
-                                {{ $posts['categories']['name'] ?? 'Kategori Yok' }}
-                            </span>
+                            @foreach($posts['categories'] ?? [] as $category)
+                                <span class="inline-block px-2 py-1 bg-gray-700 text-gray-300 text-sm rounded-full mb-2">
+                                    {{ $category['name'] ?? 'Kategori Yok' }}
+                                </span>
+                            @endforeach
                             <h2 class="text-xl font-bold text-gray-100 mb-2">
                                 {{ $posts['title'] }}
                             </h2>

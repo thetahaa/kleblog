@@ -55,7 +55,7 @@
                 <article class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
                     <!-- Post Image -->
                      
-                    <img src="{{ asset('storage/app/public/posts/' . $post['image']) }}"  class="w-full h-48 object-cover">
+                    <img src="{{ ('http://localhost:8000' .'/'.$post['image']) }}"  class="w-full h-48 object-cover">
                     
                     <!-- Post Content -->
                     <div class="p-4">
@@ -78,13 +78,15 @@
                         
                         <!-- Tags -->
                         <div class="flex flex-wrap gap-2 mb-4">
-                            @foreach($post ['tags'] as $tag)
+                            @foreach($post['categories'] ?? [] as $category)
                                 <span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full">
-                                    #{{ $post ['categories'] ['name'] ?? '' }}
+                                    #{{ $category['name'] ?? '' }}
                                 </span>
-
+                            @endforeach
+                            
+                            @foreach($post['tags'] ?? [] as $tag)
                                 <span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full">
-                                    #{{ $post ['tags'] ['name'] ?? '' }}
+                                    #{{ $tag['name'] ?? '' }}
                                 </span>
                             @endforeach
                         </div>
