@@ -1,59 +1,75 @@
-<html>
+<!DOCTYPE html>
+<html lang="tr">
 <head>
-    <title>kle | Giriş Yap</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>kle | Giriş Yap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
-    <div class="container-fluid">
-        <div id="form-control">
-            <div class="form-container">
-                <form id="form" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <h3 id="login">Giriş Yap</h3>
-                    <input type="email" class="email" name="email" placeholder="E-Mail" required style="margin-top: 30px;">
-                    <div class="input-group">
-                        <input type="password" class="form-control pass" id="password" name="password" placeholder="Şifre" required>
-                            <span id="toggle-password">
-                                <i class="fa fa-eye-slash goz"></i>
-                            </span>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+            <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                @csrf
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-2">Giriş Yap</h3>
+                    <p class="text-gray-500">Hesabına erişmek için bilgilerini gir</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">E-Posta</label>
+                        <input type="email" name="email" required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
                     </div>
 
-                    @if ($errors->has('login'))
-                        <div id="warning">
-                            {{ $errors->first('login') }}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Şifre</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all pr-12">
+                            <span id="toggle-password" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-blue-500 transition-colors">
+                                <i class="fa fa-eye-slash"></i>
+                            </span>
                         </div>
-                    @endif
-                    <p>Eğer hesabın yoksa <a href="{{ route('register') }}">Kayıt Ol</a></p>
-                    <button type="submit" class="btn" id="button">Giriş Yap</button>
-                </form>
-            </div>
+                    </div>
+                </div>
+
+                @if ($errors->any())
+                    <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                        {{ $errors->first('login') }}
+                    </div>
+                @endif
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-lg transition-colors">
+                    Giriş Yap
+                </button>
+
+                <p class="text-center text-gray-600 text-sm">
+                    Hesabın yok mu?
+                    <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-500 font-medium ml-1">
+                        Kayıt Ol
+                    </a>
+                </p>
+            </form>
         </div>
     </div>
 
-
     <script>
         document.getElementById('toggle-password').addEventListener('click', function() {
-                var passwordField = document.getElementById('password');
-                var icon = this.querySelector('i');
-                
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                } else {
-                    passwordField.type = "password";
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                }
-            });
-
+            const passwordField = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                passwordField.type = "password";
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        });
     </script>
-
 </body>
 </html>

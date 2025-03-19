@@ -27,5 +27,18 @@ class PostController extends Controller
 
         return view('post.index', compact('posts'));
     }
+
+    public function show($id)
+    {
+        $response = Http::timeout(1000)->withToken(session('token'))->get("http://api_nginx/api/posts/".$id);
+        if ($response->successful()) {
+            $posts = $response->json();
+            
+            return view('post.show', [
+                'posts' => $posts
+            ]);
+        }
+
+    }
     
 }

@@ -1,92 +1,139 @@
-<html>
-    <head>
-        <title>kle | Kayıt Ol</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kle | Kayıt Ol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 
-    <body>
-        
-        <div class="container-fluid">
-
-            <div id="form-control">
-                <div class="form-container">
-                    <form action="{{ route('register') }}" method="POST" id="form">
-                        @csrf
-                        <h3 id="register">Kayıt Ol</h3>
-                        <input type="text" class="name" name="name" placeholder="İsim Soyisim" required style="margin-top: 30px;">
-                        <input type="email" class="email" name="email" placeholder="E-Mail" required>
-                        <div class="input-group">
-                            <input type="password" class="form-control pass" id="password" name="password" placeholder="Şifre" required>
-                                <span id="toggle-password">
-                                    <i class="fa fa-eye-slash goz"></i>
-                                </span>
-                        </div>
-                        <div class="input-group">
-                            <input type="password" class="form-control againpass" id="password_confirmation" name="password_confirmation" placeholder="Şifre Tekrarı" required>
-                                <span id="toggle-password-confirmation">
-                                    <i class="fa fa-eye-slash goz"></i>
-                                </span>
-                        </div>
-
-                        @if ($errors->any())
-                        <div id="warning">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                        <p>Zaten bir hesabın varsa <a href="{{ url('/login') }}">Giriş Yap</a></p>
-                        <button type="submit" class="btn" id="button">Kayıt Ol</button>
-                    </form>
+<body class="bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transition-colors duration-300">
+            <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                @csrf
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Hesap Oluştur</h3>
                 </div>
-            </div>
 
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ad Soyad</label>
+                        <input type="text" name="name" required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400">
+                        @error('name')
+                            <p class="mt-1 text-sm text-red-500 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">E-Posta</label>
+                        <input type="email" name="email" required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400">
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-500 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Şifre</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 pr-12">
+                            <span id="toggle-password" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                <i class="fa fa-eye-slash"></i>
+                            </span>
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-500 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Şifre Tekrarı</label>
+                        <div class="relative">
+                            <input type="password" id="password_confirmation" name="password_confirmation" required 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 pr-12">
+                            <span id="toggle-password-confirmation" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                <i class="fa fa-eye-slash"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                @if($errors->any())
+                    <div class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors dark:bg-blue-700 dark:hover:bg-blue-600">
+                    Kayıt Ol
+                </button>
+
+                <p class="text-center text-gray-600 dark:text-gray-400 text-sm">
+                    Zaten hesabın var mı?
+                    <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium ml-1 transition-colors">
+                        Giriş Yap
+                    </a>
+                </p>
+            </form>
         </div>
+    </div>
 
+    <!-- Koyu/Açık Mod Geçiş Butonu (Opsiyonel) -->
+    <button onclick="toggleDarkMode()" class="fixed bottom-4 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </button>
 
-        <script>
+    <script>
+        // Tema Değiştirme Fonksiyonu
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
             
-            // Şifre için göz simgesine tıklama işlemi
-            document.getElementById('toggle-password').addEventListener('click', function() {
-                var passwordField = document.getElementById('password');
-                var icon = this.querySelector('i');
-                
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                } else {
-                    passwordField.type = "password";
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                }
-            });
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
 
-            // Şifre tekrarına göz simgesi eklemek için
-            document.getElementById('toggle-password-confirmation').addEventListener('click', function() {
-                var passwordConfirmationField = document.getElementById('password_confirmation');
-                var icon = this.querySelector('i');
-                
-                if (passwordConfirmationField.type === "password") {
-                    passwordConfirmationField.type = "text";
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                } else {
-                    passwordConfirmationField.type = "password";
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                }
-            });
+        // Sistem temasını kontrol et
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fas fa-sun';
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('theme-icon').className = 'fas fa-moon';
+        }
 
+        // Şifre görünürlüğü fonksiyonları
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            togglePasswordVisibility('password', this);
+        });
 
-        </script>
+        document.getElementById('toggle-password-confirmation').addEventListener('click', function() {
+            togglePasswordVisibility('password_confirmation', this);
+        });
 
-    </body>
+        function togglePasswordVisibility(fieldId, button) {
+            const field = document.getElementById(fieldId);
+            const icon = button.querySelector('i');
+            field.type = field.type === 'password' ? 'text' : 'password';
+            icon.classList.toggle('fa-eye-slash');
+            icon.classList.toggle('fa-eye');
+        }
+    </script>
+</body>
 </html>

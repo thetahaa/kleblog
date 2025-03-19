@@ -37,6 +37,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware([tokenmiddleware::class])->group(function () {
     Route::get('posts', [PostController::class, 'index'])->name('post.index');
+    Route::get('posts/{id}', [PostController::class, 'show'])->name('post.show');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });
