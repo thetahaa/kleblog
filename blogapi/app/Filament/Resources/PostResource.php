@@ -41,11 +41,8 @@ class PostResource extends Resource
                     ->maxLength(10000),
                 Forms\Components\FileUpload::make('image')
                     ->label('Resim')
-                    ->disk('public')
-                    ->directory('posts')
                     ->image()
-                    ->required()
-                    ->maxSize(10240),
+                    ->required(),
                 Forms\Components\MultiSelect::make('categories')
                     ->relationship('categories', 'name')
                     ->preload()

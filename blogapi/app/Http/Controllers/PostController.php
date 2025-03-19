@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $posts = Post::with(['categories'])->findOrFail($id);
+        $posts = Post::with(['categories', 'tags'])->findOrFail($id);
         return response()->json($posts);
     }
 
