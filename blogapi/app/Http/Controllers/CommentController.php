@@ -9,29 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Post $post)
+    public function index(Request $request, Post $posts)
+    {
+        $comments = Comment::all();
+        return response()->json($comments);
+    }
+
+    public function store(Request $request, Post $posts)
     {
         $validated = $request->validate([
             'content' => 'required|string|max:1000'
         ]);
 
-        $comment = new Comment();
-        $comment->content = $validated['content'];
-        $comment->user_id = Auth::id();
-        $comment->post_id = $post->id;
-        $comment->save();
+        $comments = new Comment();
+        $comments->content = $validated['content'];
+        $comments->user_id = Auth::id();
+        $comments->post_id = $posts->id;
+        $comments->save();
 
-        return redirect()->back()
-            ->with('success', 'Yorumunuz başarıyla eklendi!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Yorumunuz başarıyla eklendi!',
+            'comment' => $comments
+        ], 201);
     }
 
-    public function destroy(Comment $comment)
-    {
-        $this->authorize('delete', $comment);
-
-        $comment->delete();
-
-        return redirect()->back()
-            ->with('success', 'Yorum başarıyla silindi!');
-    }
 }

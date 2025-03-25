@@ -3,9 +3,12 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
@@ -24,10 +27,12 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/profile', [LoginController::class, 'profile']);
     Route::get('posts', [PostController::class, 'index']);
     Route::get('posts/{id}', [PostController::class, 'show']);
+    Route::get('posts/{id}/comments', [CommentController::class, 'index']);
+    Route::post('posts/{id}/comments', [CommentController::class, 'store']);
+    Route::get('profile', [ProfileController::class, 'show']);
+    Route::put('profile', [ProfileController::class, 'update']);
 });
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
-// Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);

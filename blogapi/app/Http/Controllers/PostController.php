@@ -18,15 +18,15 @@ class PostController extends Controller
     {
         $posts = Post::all();
         
-        $posts = Post::with('categories', 'tags')->get();
+        $posts = Post::with('categories', 'tags', 'comments.user')->get()->toArray();;
+        $posts = Post::where('status',true)->latest()->get();
 
         return response()->json($posts);
-        return view('post.index', compact('posts'));
     }
 
     public function show($id)
     {
-        $posts = Post::with(['categories', 'tags'])->findOrFail($id);
+        $posts = Post::with(['categories', 'tags', 'comments.user'])->findOrFail($id)->toArray();;
         return response()->json($posts);
     }
 

@@ -50,7 +50,7 @@ class CommentResource extends Resource
             ->columns([
                 TextColumn::make('content')
                     ->label('Yorum')
-                    ->limit(50)
+                    ->limit(40)
                     ->searchable(),
                     
                 TextColumn::make('post.title')
