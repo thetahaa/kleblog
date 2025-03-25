@@ -46,5 +46,6 @@ Route::middleware([tokenmiddleware::class])->group(function () {
     // Route::post('posts/{id}/comments', [CommentController::class, 'store'])->name('comment.store');
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 

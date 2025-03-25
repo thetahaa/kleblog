@@ -96,7 +96,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Şifre Tekrar</label>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Şifre Onayı</label>
                             <input type="password" name="password_confirmation"
                                 class="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
                         </div>

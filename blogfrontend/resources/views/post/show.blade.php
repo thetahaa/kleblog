@@ -85,7 +85,7 @@
             </article>
 
             <section class="bg-gray-800 rounded-lg shadow-md p-6">
-                <h3 class="text-xl font-bold text-gray-100 mb-6">Yorumlar ({{ $posts['comments'] ?? 0 }})</h3>
+                <h3 class="text-xl font-bold text-gray-100 mb-6">Yorumlar ({{ count($posts['comments'] ?? []) }})</h3>
 
                 @auth
                 <form action="{{ route('comment.store', $posts->id) }}" method="POST" class="mb-8">
@@ -105,21 +105,21 @@
 
                 <div class="space-y-4">
                     @forelse($posts ['comments'] ?? [] as $comment)
-                        <div class="bg-gray-700 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="flex items-center space-x-2">
-                                    <span class="font-medium text-gray-100">{{ $comment ['user'] ['name'] }}</span>
-                                    <span class="text-gray-400 text-sm">•</span>
-                                    <span class="text-gray-400 text-sm">{{ $comment->created_at->diffForHumans() }}</span>
+                            <div class="bg-gray-700 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-medium text-gray-100">{{ $comment ['user'] ['name'] }}</span>
+                                        <span class="text-gray-400 text-sm">•</span>
+                                        <span class="text-gray-400 text-sm">{{ \Carbon\Carbon::parse($comment['created_at'])->diffForHumans() }}</span>
+                                    </div>
                                 </div>
+                                <p class="text-gray-300 text-sm leading-relaxed">
+                                    {{ $comment ['content'] }}
+                                </p>
                             </div>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                {{ $comment ['content'] }}
-                            </p>
-                        </div>
-                    @empty
-                        <p class="text-gray-400 text-center py-4">Henüz yorum yapılmamış</p>
-                    @endforelse
+                        @empty
+                            <p class="text-gray-400 text-center py-4">Henüz yorum yapılmamış</p>
+                    @endforelse                    
                 </div>
             </section>
         </div>
