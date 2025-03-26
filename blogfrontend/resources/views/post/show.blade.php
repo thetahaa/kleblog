@@ -87,21 +87,16 @@
             <section class="bg-gray-800 rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-bold text-gray-100 mb-6">Yorumlar ({{ count($posts['comments'] ?? []) }})</h3>
 
-                @auth
-                <form action="{{ route('comment.store', $posts->id) }}" method="POST" class="mb-8">
+                <form action="{{ route('comments.store', $posts['id']) }}" method="POST" class="mb-8">
                     @csrf
                     <div class="mb-4">
-                        <textarea name="content" rows="3" 
-                            class="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Yorumunuzu yazın...">
-                        </textarea>
+                        <textarea name="content" rows="3" class="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Yorumunuzu yazın..."></textarea>
                     </div>
-                    <button type="submit" 
-                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
                         Yorum Yap
                     </button>
                 </form>
-                @endauth
+                
 
                 <div class="space-y-4">
                     @forelse($posts ['comments'] ?? [] as $comment)
@@ -119,7 +114,7 @@
                             </div>
                         @empty
                             <p class="text-gray-400 text-center py-4">Henüz yorum yapılmamış</p>
-                    @endforelse                    
+                    @endforelse
                 </div>
             </section>
         </div>

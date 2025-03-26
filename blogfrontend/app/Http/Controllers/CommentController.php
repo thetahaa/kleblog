@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Http;
 
 class CommentController extends Controller
 {
-    public function index(Request $request, Post $posts)
+    public function index($id, Request $request)
     {
         $token = session('token');
         if (!$token) {
             return redirect('/')->with('error', 'Lütfen giriş yapınız.');
         }
-        $response = Http::withToken($token)->get("http://api_nginx/api/posts/{id}/comments");
+        $response = Http::withToken($token)->get("http://api_nginx/api/posts/{$id}/comments");
         $comments = $response->json();
         
         if (empty($comments)) {
@@ -25,17 +25,21 @@ class CommentController extends Controller
         return view('post.show', compact('posts', 'comments'));
     }
 
-    public function store(Request $request, Post $posts)
+    public function store($id, Request $request)
     {
         $token = session('token');
         if (!$token) {
             return redirect('/')->with('error', 'Lütfen giriş yapınız.');
         }
 
-        $response = Http::withToken($token)->post("http://api_nginx/api/posts/{id}/comments", [
-            'content' => $request->input('content')
-        ]);
-
+        $response = Http::withToken($token)->post(
+            "http://api_nginx/api/posts/{$id}/comments",
+            [
+                'content' => $request->input('content'),
+                'post_id' => $id
+            ]
+            
+        );
         if ($response->successful()) {
             return redirect()->back()->with('success', 'Yorumunuz başarıyla eklendi!');
         } else {
