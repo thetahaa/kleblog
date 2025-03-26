@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function index(Request $request, Post $posts)
-    {
-        $comments = Comment::all();
-        return response()->json($comments);
-    }
 
     public function store(Request $request, Post $posts)
     {
-        $validated = $request->validate([
-            'content' => 'required|string|max:1000'
+        $request->validate([
+            'content' => 'required|string|min:3',
+            'post_id' => 'required|exists:posts,id',
         ]);
 
-        $comments = new Comment();
-        $comments->content = $validated['content'];
-        $comments->user_id = Auth::id();
-        $comments->post_id = $posts->id;
-        $comments->save();
+        Comment::create([
+            'post_id' => $request->post_id,
+            'status'  => false,
+            'user_id' => $request->user()->id,
+            'content' => $request->content, 
+        ]);
+
+        return redirect()->route('post.show', $posts->id)
+        ->with('success', 'Yorum eklendi!');
 
         return response()->json([
             'success' => true,

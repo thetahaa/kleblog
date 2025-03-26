@@ -26,9 +26,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/profile', [LoginController::class, 'profile']);
     Route::get('posts', [PostController::class, 'index']);
-    Route::get('posts/{id}', [PostController::class, 'show']);
-    Route::get('posts/{id}/comments', [CommentController::class, 'index']);
-    Route::post('posts/{id}/comments', [CommentController::class, 'store']);
+    Route::get('posts/{id}', [PostController::class, 'show'])->name('post.show');
+    Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
 });

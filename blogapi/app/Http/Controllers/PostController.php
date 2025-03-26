@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
         
-        $posts = Post::with('categories', 'tags', 'comments.user')->get()->toArray();;
+        $posts = Post::with('categories', 'tags', 'comments.user')->get()->toArray();
         $posts = Post::where('status',true)->latest()->get();
 
         return response()->json($posts);
