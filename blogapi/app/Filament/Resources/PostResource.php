@@ -50,7 +50,9 @@ class PostResource extends Resource
 
                 Forms\Components\Toggle::make('status')
                     ->label('Aktiflik')
-                    ->required(),
+                    ->required()
+                    ->onColor('success')
+                    ->offColor('danger'),
 
                 Forms\Components\MultiSelect::make('tags')
                     ->relationship('tags', 'name')

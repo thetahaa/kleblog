@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function index()
+    {
+        $comments = Comment::all();
+        $comments = Comment::where('status',true)->latest()->get();
+
+    }
 
     public function store(Request $request, Post $posts)
     {

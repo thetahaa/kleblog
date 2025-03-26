@@ -40,7 +40,9 @@ class CommentResource extends Resource
                     ->required(),
                 Forms\Components\Toggle::make('status')
                     ->label('Aktiflik')
-                    ->required(),
+                    ->required()
+                    ->onColor('success')
+                    ->offColor('danger'),
             ]);
     }
 
@@ -50,7 +52,7 @@ class CommentResource extends Resource
             ->columns([
                 TextColumn::make('content')
                     ->label('Yorum')
-                    ->limit(40)
+                    ->limit(35)
                     ->searchable(),
                     
                 TextColumn::make('post.title')
