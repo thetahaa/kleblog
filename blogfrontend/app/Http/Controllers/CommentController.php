@@ -16,6 +16,7 @@ class CommentController extends Controller
             return redirect('/')->with('error', 'Lütfen giriş yapınız.');
         }
         $response = Http::withToken($token)->get("http://api_nginx/api/posts/{$id}/comments");
+        $comments = Comment::where('is_active', true)->get();
         $comments = $response->json();
         
         if (empty($comments)) {

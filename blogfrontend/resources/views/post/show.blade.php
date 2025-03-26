@@ -85,8 +85,8 @@
             </article>
 
             <section class="bg-gray-800 rounded-lg shadow-md p-6">
-                <h3 class="text-xl font-bold text-gray-100 mb-6">Yorumlar ({{ count($posts['comments'] ?? []) }})</h3>
-
+                <h3 class="text-xl font-bold text-gray-100 mb-6">Yorumlar ({{ count(array_filter($posts['comments'], function ($comment) {return $comment['status'] == 1; })) }})</h3>
+             
                 <form action="{{ route('comments.store', $posts['id']) }}" method="POST" class="mb-8">
                     @csrf
                     <div class="mb-4">
@@ -99,21 +99,23 @@
                 
 
                 <div class="space-y-4">
-                    @forelse($posts ['comments'] ?? [] as $comment)
+                    @forelse($posts['comments'] ?? [] as $comment)
+                        @if($comment['status'] == 1)
                             <div class="bg-gray-700 rounded-lg p-4">
                                 <div class="flex items-center justify-between mb-2">
                                     <div class="flex items-center space-x-2">
-                                        <span class="font-medium text-gray-100">{{ $comment ['user'] ['name'] }}</span>
+                                        <span class="font-medium text-gray-100">{{ $comment['user']['name'] }}</span>
                                         <span class="text-gray-400 text-sm">•</span>
                                         <span class="text-gray-400 text-sm">{{ \Carbon\Carbon::parse($comment['created_at'])->diffForHumans() }}</span>
                                     </div>
                                 </div>
                                 <p class="text-gray-300 text-sm leading-relaxed">
-                                    {{ $comment ['content'] }}
+                                    {{ $comment['content'] }}
                                 </p>
                             </div>
-                        @empty
-                            <p class="text-gray-400 text-center py-4">Henüz yorum yapılmamış</p>
+                        @endif
+                    @empty
+                        <p class="text-gray-400 text-center py-4">Henüz yorum yapılmamış</p>
                     @endforelse
                 </div>
             </section>
