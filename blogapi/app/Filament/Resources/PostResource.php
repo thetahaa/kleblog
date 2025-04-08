@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\ImageColumn;
-
+use Filament\Tables\Filters\SelectFilter;
 
 
 class PostResource extends Resource
@@ -84,7 +84,27 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('siralama')
+                ->label('Sıralama')
+                ->options([
+                    'yeni' => 'En Yeniler',
+                    'populer' => 'En Popüler',
+                ])
+                ->default('yeni')
+                ->query(function (Builder $query, array $data) {
+                    $query->when(
+                        $data['value'] === 'populer',
+                        function (Builder $query) {
+                            $query->withCount(['comments' => function ($query) {
+                                $query->where('status', true);
+                            }])
+                            ->orderBy('comments_count', 'desc');
+                        },
+                        function (Builder $query) {
+                            $query->latest();
+                        }
+                    );
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

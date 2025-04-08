@@ -36,4 +36,12 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function scopePopular($query)
+    {
+        return $query->withCount(['comments' => function ($query) {
+                    $query->where('status', true);
+                }])
+            ->orderBy('comments_count', 'desc');
+    }
 }

@@ -14,13 +14,31 @@ use Illuminate\Support\Facades\Http;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        
-        $posts = Post::with('categories', 'tags', 'comments.user')->get()->toArray();
-        $posts = Post::where('status',true)->latest()->get();
+        $posts = Post::where('status', true);
 
+        $posts->with(['categories','tags','comments' => function($query) {
+                $query->where('status', true)->with('user');
+            }
+        ]);
+
+        $posts->withCount(['comments' => function($query) {
+            $query->where('status', true);
+        }]);
+
+        if($request->has('filter')) {
+            if($request->filter == 'popüler') {
+                $posts = $posts->orderBy('comments_count', 'desc')->get();
+                return response()->json($posts);
+            } else {
+                $posts->latest();
+            }
+        } else {
+            $posts->latest();
+        }
+
+        $posts = $posts->get();
         return response()->json($posts);
     }
 
