@@ -91,13 +91,11 @@
         </div>
     </div>
 
-    <!-- Koyu/Açık Mod Geçiş Butonu (Opsiyonel) -->
     <button onclick="toggleDarkMode()" class="fixed bottom-4 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
         <i id="theme-icon" class="fas fa-moon"></i>
     </button>
 
     <script>
-        // Tema Değiştirme Fonksiyonu
         function toggleDarkMode() {
             const html = document.documentElement;
             const themeIcon = document.getElementById('theme-icon');
@@ -109,7 +107,6 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        // Sistem temasını kontrol et
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').className = 'fas fa-sun';
@@ -118,7 +115,6 @@
             document.getElementById('theme-icon').className = 'fas fa-moon';
         }
 
-        // Şifre görünürlüğü fonksiyonları
         document.getElementById('toggle-password').addEventListener('click', function() {
             togglePasswordVisibility('password', this);
         });

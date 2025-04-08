@@ -8,10 +8,23 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-900 min-h-screen flex flex-col">
-    <header class="bg-gray-800 shadow-sm sticky top-0 z-50">
-        <nav class="max-w-6xl mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a class="text-2xl font-bold text-gray-300">Blog</a>
+<header class="bg-gray-800 shadow-sm sticky top-0 z-50">
+    <nav class="max-w-6xl mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <a class="text-2xl font-bold text-gray-300">Blog</a>
+
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex items-center bg-gray-700 rounded-full p-1 space-x-1">
+                    <a href="?filter=yeni" 
+                       class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                        En Yeniler
+                    </a>
+                    <a href="?filter=popüler" 
+                       class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                        En Popüler
+                    </a>
+                </div>
+
                 <div class="relative">
                     <button id="menuButton" class="flex items-center space-x-1 text-gray-300 hover:text-white">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,9 +54,25 @@
                         </form>
                     </div>
 
+                </div>
+
             </div>
-        </nav>
-    </header>
+        </div>
+
+        <div class="md:hidden px-4 py-3 bg-gray-800 border-t border-gray-700 mt-4">
+            <div class="flex gap-2">
+                <a href="?filter=yeni" 
+                   class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                    En Yeniler
+                </a>
+                <a href="?filter=popüler" 
+                   class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                    En Popüler
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
 
     <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -19,8 +19,10 @@ class PostController extends Controller
             return redirect('/')->with('error', 'Lütfen giriş yapınız.');
         }
         $response = Http::timeout(1000)->withToken($token)->get('http://api_nginx/api/posts');
-        $posts = $response->json();
-
+        $posts = collect($response->json());
+        if(url()->full() == 'http://localhost:8003/posts?filter=pop%C3%BCler'){
+            $posts = $posts->sortByDesc('comments_count');
+        }
         if (empty($posts)) {
             return view('post.index')->with('error', 'Veriler alınamadı.');
         }
