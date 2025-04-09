@@ -13,34 +13,42 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class PostController extends Controller
 {
     public function index(Request $request)
-    {
-        $token = session('token');
-        if (!$token) {
-            return redirect('/')->with('error', 'Lütfen giriş yapınız.');
-        }
-        $response = Http::timeout(1000)->withToken($token)->get('http://api_nginx/api/posts');
-        $posts = collect($response->json());
-        if(url()->full() == 'http://localhost:8003/posts?filter=pop%C3%BCler'){
-            $posts = $posts->sortByDesc('comments_count');
-        }
-        if (empty($posts)) {
-            return view('post.index')->with('error', 'Veriler alınamadı.');
-        }
+{
+    try {
+        $response = Http::withToken(session('token'))
+            ->get('http://api_nginx/api/posts', [
+                'filter' => $request->filter,
+                'category' => $request->category,
+                'tag' => $request->tag
+            ]);
 
-        return view('post.index', compact('posts'));
+        $data = $response->json();
+        return view('post.index', ['posts' => $data['data'] ?? []]);
+
+    } catch (\Exception $e) {
+        return view('post.index')->with('error', $e->getMessage());
     }
-
+}
     public function show($id)
     {
-        $response = Http::timeout(1000)->withToken(session('token'))->get("http://api_nginx/api/posts/".$id);
-        if ($response->successful()) {
+        try {
+            $response = Http::timeout(1000)
+                ->withToken(session('token'))
+                ->get("http://api_nginx/api/posts/$id");
+
+            if (!$response->successful()) {
+                throw new \Exception('Post bulunamadı');
+            }
+
             $posts = $response->json();
-            
+
             return view('post.show', [
                 'posts' => $posts
             ]);
-        }
 
+        } catch (\Exception $e) {
+            return redirect()->route('post.index')->with('error', $e->getMessage());
+        }
     }
     
 }

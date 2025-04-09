@@ -8,71 +8,109 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-900 min-h-screen flex flex-col">
-<header class="bg-gray-800 shadow-sm sticky top-0 z-50">
-    <nav class="max-w-6xl mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-            <a class="text-2xl font-bold text-gray-300">Blog</a>
+    <header class="bg-gray-800 shadow-sm sticky top-0 z-50">
+        <nav class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a class="text-2xl font-bold text-gray-300">Blog</a>
 
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex items-center bg-gray-700 rounded-full p-1 space-x-1">
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:flex items-center bg-gray-700 rounded-full p-1 space-x-1">
+                        <a href="?filter=yeni" 
+                        class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                            En Yeniler
+                        </a>
+                        <a href="?filter=popüler" 
+                        class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                            En Popüler
+                        </a>
+                    </div>
+
+                    <div class="relative">
+    <button id="menuButton" class="flex items-center space-x-1 text-gray-300 hover:text-white">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+    </button>
+
+    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-700 text-white rounded-md shadow-lg py-1">
+        <!-- Profil ve Çıkış Üstte -->
+        <form method="GET" action="{{ route('profile.update') }}" class="w-full">
+            <button type="submit" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-800 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                </svg>
+                <span>Profil</span>
+            </button>
+        </form>
+
+        <form method="POST" action="{{ route('logout') }}" class="w-full border-b border-gray-600">
+            @csrf
+            <button type="submit" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-800 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/>
+                </svg>
+                <span>Çıkış Yap</span>
+            </button>
+        </form>
+
+        <!-- Kategoriler Altta -->
+        <div class="pt-2">
+            <div class="px-4 py-2 text-xs text-gray-400 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/>
+                </svg>
+                <span>Kategoriler</span>
+            </div>
+            @foreach($post['categories'] ?? [] as $category)
+                <a  href="?category={{ $category->slug }}"
+                   class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/>
+                    </svg>
+                    <span>{{ $category['name'] }}</span>
+                </a>
+            @endforeach
+        </div>
+
+        <!-- Etiketler Altta -->
+        <div class="pt-2">
+            <div class="px-4 py-2 text-xs text-gray-400 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/>
+                </svg>
+                <span>Etiketler</span>
+            </div>
+            @foreach($post['tags'] ?? [] as $tag)
+                <a  href="?tag={{ $tag->slug }}"
+                   class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/>
+                    </svg>
+                    <span>{{ $tag['name'] }}</span>
+                </a>
+            @endforeach
+        </div>
+
+    </div>
+</div>
+
+                </div>
+            </div>
+
+            <div class="md:hidden px-4 py-3 bg-gray-800 border-t border-gray-700 mt-4">
+                <div class="flex gap-2">
                     <a href="?filter=yeni" 
-                       class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                    class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
                         En Yeniler
                     </a>
                     <a href="?filter=popüler" 
-                       class="px-5 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-600' }}">
+                    class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
                         En Popüler
                     </a>
                 </div>
-
-                <div class="relative">
-                    <button id="menuButton" class="flex items-center space-x-1 text-gray-300 hover:text-white">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-                        </svg>
-                    </button>
-
-                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-700 text-white rounded-md shadow-lg py-1">
-                        <form method="GET" action="{{ route('profile.update') }}"  class="w-full">
-                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-800 flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                </svg>
-                                <span>Profil</span>
-                            </button>
-                        </form>
-                            
-
-                        <form method="POST" action="{{ route('logout') }}" class="w-full">
-                            @csrf
-                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-800 flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/>
-                                </svg>
-                                <span>Çıkış Yap</span>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-
             </div>
-        </div>
-
-        <div class="md:hidden px-4 py-3 bg-gray-800 border-t border-gray-700 mt-4">
-            <div class="flex gap-2">
-                <a href="?filter=yeni" 
-                   class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') !== 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
-                    En Yeniler
-                </a>
-                <a href="?filter=popüler" 
-                   class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-full {{ request('filter') === 'popüler' ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
-                    En Popüler
-                </a>
-            </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
     <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
