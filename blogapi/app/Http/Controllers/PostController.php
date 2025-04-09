@@ -15,32 +15,35 @@ use Illuminate\Support\Facades\Http;
 class PostController extends Controller
 {
     public function index(Request $request)
-    {
-        $posts = Post::where('status', true);
+{
+    $query = Post::where('status', true)
+        ->with(['categories', 'tags', 'comments.user'])
+        ->withCount(['comments' => fn($q) => $q->where('status', true)]);
 
-        $posts->with(['categories','tags','comments' => function($query) {
-                $query->where('status', true)->with('user');
-            }
-        ]);
-
-        $posts->withCount(['comments' => function($query) {
-            $query->where('status', true);
-        }]);
-
-        if($request->has('filter')) {
-            if($request->filter == 'popüler') {
-                $posts = $posts->orderBy('comments_count', 'desc')->get();
-                return response()->json($posts);
-            } else {
-                $posts->latest();
-            }
-        } else {
-            $posts->latest();
-        }
-
-        $posts = $posts->get();
-        return response()->json($posts);
+    // Kategori Filtresi
+    if ($request->category) {
+        $query->whereHas('categories', fn($q) => $q->where('slug', $request->category));
     }
+
+    // Etiket Filtresi (elseif yerine ayrı if)
+    if ($request->tag) {
+        $query->whereHas('tags', fn($q) => $q->where('slug', $request->tag));
+    }
+
+    // Popüler/Yeni Filtresi (Güvenli kontrol)
+    $query->when($request->has('filter'), function($q) use ($request) {
+        $request->filter === 'popüler' 
+            ? $q->orderByDesc('comments_count')
+            : $q->latest();
+    }, function($q) {
+        $q->latest();
+    });
+
+    return response()->json([
+        'success' => true,
+        'data' => $query->get()
+    ]);
+}
 
     public function show($id)
     {

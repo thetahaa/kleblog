@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     git \ 
     curl \ 
     supervisor \ 
-    mariadb-client \
     && docker-php-ext-install pdo_mysql intl 
 
 # Composer yükle (PHP bağımlılık yöneticisi) 
@@ -28,11 +27,11 @@ WORKDIR /var/www
 RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl 
 RUN sed -i 's/listen = .*/listen = 9000/' /usr/local/etc/php-fpm.d/www.conf
 
-# Node.js ve npm'i yükle 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \ 
-    apt-get install -y nodejs && \ 
-    apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/* 
+# # Node.js ve npm'i yükle 
+# RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \ 
+#     apt-get install -y nodejs && \ 
+#     apt-get clean && \ 
+#     rm -rf /var/lib/apt/lists/* 
 
 # Uygulama için 8080 portunu expose edelim 
 EXPOSE 8000 
