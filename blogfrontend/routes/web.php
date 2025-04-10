@@ -42,11 +42,11 @@ Route::middleware([tokenmiddleware::class])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('posts', [PostController::class, 'index'])->name('post.index');
     Route::get('posts/{id}', [PostController::class, 'show'])->name('post.show');
-    // Route::get('posts/{id}/comments', [CommentController::class, 'index'])->name('post.show');
-    // Route::post('posts/{id}/comments', [CommentController::class, 'store'])->name('comment.store');
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
-    
     Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/kvkk', function () {
+        return view('kvkk');
+    });
 });
 
