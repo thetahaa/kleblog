@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\tokenmiddleware;
@@ -19,8 +20,8 @@ Route::post('/', function () {
     return view('data');
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/game', function () {
+    return view('game');
 });
 
 Route::get('/login', function () {
@@ -45,8 +46,6 @@ Route::middleware([tokenmiddleware::class])->group(function () {
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::get('/kvkk', function () {
-        return view('kvkk');
-    });
+    Route::get('kvkk', [PrivacyPolicyController::class, 'show']);
 });
 

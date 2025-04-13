@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
     <title>Kle | Profil Düzenle</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -88,7 +88,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Yeni Şifre</label>
                             <div class="relative">
-                                <input type="password" name="password"
+                                <input type="password" name="password" required
                                     class="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all pr-12">
                                 <span id="toggle-password" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-blue-500 transition-colors">
                                     <i class="fa fa-eye-slash"></i>
@@ -98,7 +98,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Şifre Onayı</label>
-                            <input type="password" name="password_confirmation"
+                            <input type="password" name="password_confirmation" required
                                 class="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
                         </div>
                     </div>

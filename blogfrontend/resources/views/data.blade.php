@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
     <title>kle | Anasayfa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class'
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'logo-bounce': 'logo-bounce 1.2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'logo-bounce': {
+                            '0%, 100%': { 
+                                transform: 'translateY(0) rotate(0deg)',
+                                opacity: 1
+                            },
+                            '50%': { 
+                                transform: 'translateY(-15px) rotate(8deg)',
+                                opacity: 0.9
+                            }
+                        }
+                    }
+                }
+            }
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -18,7 +37,19 @@
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transition-colors duration-300">
             <div class="text-center">
-                <h3 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Hoş Geldiniz 👋</h3>
+                <!-- Logo & Başlık -->
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <img src="{{ asset('images/logo4.png') }}" 
+                         alt="Logo" 
+                         class="w-14 h-14 object-contain 
+                                animate-logo-bounce
+                                hover:animate-none
+                                hover:scale-110
+                                hover:rotate-12
+                                transition-transform
+                                duration-300">
+                    <h3 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Hoş Geldiniz 👋</h3>
+                </div>
                 <p class="text-gray-500 dark:text-gray-400">Verilerinizi görmek için lütfen giriş yapın veya kayıt olun.</p>
             </div>
 
@@ -50,6 +81,12 @@
         </div>
     </div>
 
+    <a href="{{ url('/game') }}" class="w-full">
+        <button  class="fixed bottom-20 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+            <i class="fas fa-gamepad"></i>
+        </button>
+    </a>
+
     <button onclick="toggleDarkMode()" class="fixed bottom-4 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
         <i id="theme-icon" class="fas fa-moon"></i>
     </button>
@@ -66,7 +103,6 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        // Sistem temasına göre başlangıç ayarı
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').className = 'fas fa-sun';

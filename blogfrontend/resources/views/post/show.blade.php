@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Kle | {{ $posts['title'] }}</title>
     @vite('resources/css/app.css')
@@ -65,9 +65,9 @@
                             </h2>
                         </div>
                         @if(isset($page))
-                            <a href="{{ url()->previous() . '?page=' . $page }}" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors">← Geri</a>
+                            <a href="/posts" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors">← Geri</a>
                         @else
-                            <a href="{{ url()->previous() }}" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors">← Geri</a>
+                            <a href="/posts" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors">← Geri</a>
                         @endif
                     </div>
 
