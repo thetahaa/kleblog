@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
@@ -30,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
+    Route::get('kvkk', [PrivacyPolicyController::class, 'show']);
 });
 
 Route::get('/welcome', function () {

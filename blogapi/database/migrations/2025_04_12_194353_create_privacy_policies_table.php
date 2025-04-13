@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('k_v_k_k_s', function (Blueprint $table) {
+        Schema::create('privacy_policies', function (Blueprint $table) {
             $table->id();
+            $table->text('name')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('k_v_k_k_s');
+        Schema::dropIfExists('privacy_policies');
     }
 };
