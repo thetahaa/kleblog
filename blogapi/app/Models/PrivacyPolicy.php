@@ -8,5 +8,6 @@ class PrivacyPolicy extends Model
 {
     protected $fillable = [
         'name',
+        'type'
     ];
 }

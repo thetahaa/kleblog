@@ -26,6 +26,12 @@ class PrivacyPolicyResource extends Resource
             Forms\Components\TextInput::make('name')
                 ->label('Policy Name')
                 ->required(),
+            Forms\Components\Select::make('type')
+                ->options([
+                    'kvkk' => 'KVKK',
+                    'privacy_policy' => 'Gizlilik Politikası'
+                ])
+                ->required()
         ]);
     }
 
@@ -34,7 +40,7 @@ class PrivacyPolicyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Policy Name')
-                ->limit(147),
+                ->limit(115),
             ])
             ->filters([
                 //

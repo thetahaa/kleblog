@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\PrivacyPolicy;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PostController;
@@ -20,8 +21,6 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/login', [LoginController::class, 'login']);
-Route::post('/posts', [PostController::class, 'posts']);
-
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/logout', [LoginController::class, 'logout']);
@@ -31,7 +30,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
-    Route::get('kvkk', [PrivacyPolicyController::class, 'show']);
+    Route::get('kvkk', [PrivacyPolicyController::class, 'kvkk']);
+    Route::get('gizlilik-politikasi', [PrivacyPolicyController::class, 'privacyPolicy']);
 });
 
 Route::get('/welcome', function () {

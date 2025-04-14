@@ -8,9 +8,15 @@ use App\Models\PrivacyPolicy;
 
 class PrivacyPolicyController extends Controller
 {
-    public function show()
+    public function kvkk()
     {
-        $privacy_policy = PrivacyPolicy::first();
-        return response()->json($privacy_policy);
+        $policy = PrivacyPolicy::where('type', 'kvkk')->firstOrFail();
+        return response()->json($policy);
+    }
+
+    public function privacyPolicy()
+    {
+        $policy = PrivacyPolicy::where('type', 'privacy_policy')->firstOrFail();
+        return response()->json($policy);
     }
 }
