@@ -81,12 +81,6 @@
         </div>
     </div>
 
-    <a href="{{ url('/game') }}" class="w-full">
-        <button  class="fixed bottom-20 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-            <i class="fas fa-gamepad"></i>
-        </button>
-    </a>
-
     <button onclick="toggleDarkMode()" class="fixed bottom-4 right-4 p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
         <i id="theme-icon" class="fas fa-moon"></i>
     </button>

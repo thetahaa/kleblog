@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\PrivacyPolicy;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -18,10 +19,6 @@ Route::get('/', function () {
 
 Route::post('/', function () {
     return view('data');
-});
-
-Route::get('/game', function () {
-    return view('game');
 });
 
 Route::get('/login', function () {
@@ -46,6 +43,7 @@ Route::middleware([tokenmiddleware::class])->group(function () {
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('posts/{posts}/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::get('kvkk', [PrivacyPolicyController::class, 'show']);
+    Route::get('kvkk', [PrivacyPolicyController::class, 'showKvkk']);
+    Route::get('gizlilik-politikasi', [PrivacyPolicyController::class, 'showPrivacyPolicy']);
 });
 

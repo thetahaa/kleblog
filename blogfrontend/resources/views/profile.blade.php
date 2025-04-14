@@ -120,12 +120,22 @@
         </div>
     </main>
 
-    <!-- <footer class="bg-gray-800 text-gray-400 mt-auto">
-        <div class="max-w-6xl mx-auto px-4 py-8">
-            <div class="text-center">
-                <p class="text-sm">
+    <!-- <footer class="bg-gray-800 border-t border-gray-700 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <div class="flex flex-col items-center space-y-2">
+                <p class="text-xs text-gray-400 text-center">
                     © 2025 Blog. Tüm hakları saklıdır.
                 </p>
+                
+                <div class="flex space-x-4">
+                    <a href="/kvkk" class="text-gray-400 hover:text-gray-300 text-xs transition-colors">
+                        KVKK
+                    </a>
+                    <span class="text-gray-400 text-xs">|</span>
+                    <a href="/gizlilik-politikasi" class="text-gray-400 hover:text-gray-300 text-xs transition-colors">
+                        Gizlilik Politikası
+                    </a>
+                </div>
             </div>
         </div>
     </footer> -->

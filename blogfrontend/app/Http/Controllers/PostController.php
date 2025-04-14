@@ -13,22 +13,22 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class PostController extends Controller
 {
     public function index(Request $request)
-{
-    try {
-        $response = Http::withToken(session('token'))
-            ->get('http://api_nginx/api/posts', [
-                'filter' => $request->filter,
-                'category' => $request->category,
-                'tag' => $request->tag
-            ]);
+    {
+        try {
+            $response = Http::withToken(session('token'))
+                ->get('http://api_nginx/api/posts', [
+                    'filter' => $request->filter,
+                    'category' => $request->category,
+                    'tag' => $request->tag
+                ]);
 
-        $data = $response->json();
-        return view('post.index', ['posts' => $data['data'] ?? []]);
+            $data = $response->json();
+            return view('post.index', ['posts' => $data['data'] ?? []]);
 
-    } catch (\Exception $e) {
-        return view('post.index')->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+            return view('post.index')->with('error', $e->getMessage());
+        }
     }
-}
     public function show($id)
     {
         try {

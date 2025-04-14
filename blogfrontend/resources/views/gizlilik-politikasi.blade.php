@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Kle | KVKK</title>
+    <title>Kle | Gizlilik Politikası</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -49,11 +49,11 @@
 
     <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
         <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8 lg:p-10 space-y-8 text-gray-300">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-6 border-b border-gray-700 pb-4">KVKK Aydınlatma Metni</h1>
-            @if($kvkk)
-                <p>{{ $kvkk['name'] ?? '' }}</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-6 border-b border-gray-700 pb-4">Gizlilik Politikası Aydınlatma Metni</h1>
+            @if($privacy_policy)
+                <p>{{ $privacy_policy['name'] ?? '' }}</p>
             @else
-                <p>KVKK metni yüklenemedi.</p>
+                <p>Gizlilik Politikası metni yüklenemedi.</p>
             @endif
 
     </main>
