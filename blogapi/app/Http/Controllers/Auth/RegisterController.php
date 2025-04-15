@@ -8,43 +8,45 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
-    {
-        return view('register');
-    }
-
     public function register(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-        ]);
-//
+        ], $this->customMessages());
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Doğrulama hataları',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if ($user) { 
-            return response()->json([ 
-                'message' => 'Kayıt Başarılı.', 
-            ], 201); 
-        } 
-     
-        else{
-            return response()->json([ 
-                'message' => 'Bir şeyler ters gitti.', 
-            ], 202);
-        } 
+        $user->assignRole('Writer');
 
+        return response()->json(['message' => 'Kayıt başarılı'], 201);
     }
-    
+
+    private function customMessages()
+    {
+        return [
+            'name.required' => 'İsim alanı zorunludur',
+            'email.required' => 'E-posta alanı zorunludur',
+            'email.email' => 'Geçerli bir e-posta adresi girin',
+            'email.unique' => 'Bu e-posta zaten kullanılıyor',
+            'password.required' => 'Şifre alanı zorunludur',
+            'password.min' => 'Şifre en az 8 karakter olmalıdır',
+            'password.confirmed' => 'Şifreler eşleşmiyor',
+        ];
+    }
 }
