@@ -43,10 +43,16 @@ class PostResource extends Resource
                     ->label('Resim')
                     ->image()
                     ->required(),
-                Forms\Components\MultiSelect::make('categories')
+                Forms\Components\Select::make('categories')
                     ->relationship('categories', 'name')
                     ->preload()
                     ->label('Kategoriler'),
+
+                Forms\Components\DateTimePicker::make('start_date')
+                    ->label('Başlangıç Tarihi'),
+
+                Forms\Components\DateTimePicker::make('end_date')
+                    ->label('Bitiş Tarihi'),
 
                 Forms\Components\Toggle::make('status')
                     ->label('Aktiflik')
@@ -74,37 +80,46 @@ class PostResource extends Resource
                     ->height(60),
                 Tables\Columns\BooleanColumn::make('status')->label('Aktiflik'),
 
+                Tables\Columns\TextColumn::make('start_date')
+                    ->dateTime()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('end_date')
+                    ->dateTime()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                    
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('siralama')
-                ->label('Sıralama')
-                ->options([
-                    'yeni' => 'En Yeniler',
-                    'populer' => 'En Popüler',
-                ])
-                ->default('yeni')
-                ->query(function (Builder $query, array $data) {
-                    $query->when(
-                        $data['value'] === 'populer',
-                        function (Builder $query) {
-                            $query->withCount(['comments' => function ($query) {
-                                $query->where('status', true);
-                            }])
-                            ->orderBy('comments_count', 'desc');
-                        },
-                        function (Builder $query) {
-                            $query->latest();
-                        }
-                    );
-                })
+                // SelectFilter::make('siralama')
+                // ->label('Sıralama')
+                // ->options([
+                //     'yeni' => 'En Yeniler',
+                //     'populer' => 'En Popüler',
+                // ])
+                // ->default('yeni')
+                // ->query(function (Builder $query, array $data) {
+                //     $query->when(
+                //         $data['value'] === 'populer',
+                //         function (Builder $query) {
+                //             $query->withCount(['comments' => function ($query) {
+                //                 $query->where('status', true);
+                //             }])
+                //             ->orderBy('comments_count', 'desc');
+                //         },
+                //         function (Builder $query) {
+                //             $query->latest();
+                //         }
+                //     );
+                // })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('image');
             $table->boolean('status')->default(false);
             $table->timestamps();
+            $table->timestamp('start_date')->nullable(); 
+            $table->timestamp('end_date')->nullable(); 
         });
     }
 
