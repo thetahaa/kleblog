@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -16,27 +14,49 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $response = Http::timeout(1000)->acceptJson()->post("http://api_nginx/api/login", [
+{
+    $response = Http::timeout(30)
+        ->acceptJson()
+        ->post("http://api_nginx/api/login", [
             'email' => $request->email,
             'password' => $request->password,
         ]);
-       
-        $token = $response['token'];
-        session(['token' => $token]);
 
-        return redirect('/posts   ', 301, ['Authorization' => $token]);
+    if ($response->successful()) {
+        $token = $response->json('token');
+        session(['token' => $token]);
+        return redirect('/posts')->with('success', 'Giriş başarılı!');
     }
+
+    $errors = [];
+    
+    // API'den gelen tüm hataları işleme
+    if ($response->status() === 422 || $response->status() === 401) {
+        $errorData = $response->json();
+        $errors = $errorData['errors'] ?? [];
+    } else {
+        $errors['general'] = 'Bir hata oluştu, lütfen tekrar deneyin';
+    }
+
+    return back()
+        ->withErrors($errors)
+        ->withInput($request->except('password'));
+}
 
     public function logout(Request $request)
     {
+        $response = Http::timeout(30)
+            ->withToken(session('token'))
+            ->post("http://api_nginx/api/logout");
 
-        $user = Http::timeout(1000)->withToken(session('token'))->post("http://api_nginx/api/logout");
-        if($user->successful())
-        {
+        if ($response->successful()) {
             session()->forget('token');
-            return redirect('http://localhost:8003');
+            return redirect('http://localhost:8003')
+                ->with('success', 'Çıkış yapıldı!');
         }
 
+        return back()->withErrors([
+            'logout_error' => 'Çıkış işlemi başarısız oldu'
+        ]);
     }
 }

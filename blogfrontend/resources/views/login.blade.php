@@ -28,7 +28,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">E-Posta</label>
                         <input type="email" name="email" required 
-                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400">
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400">
                         @error('email')
                             <p class="mt-1 text-sm text-red-500 dark:text-red-400">{{ $message }}</p>
                         @enderror
@@ -49,15 +49,7 @@
                     </div>
                 </div>
 
-                @if($errors->any())
-                    <div class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
 
                 <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-lg transition-colors dark:bg-green-700 dark:hover:bg-green-600">
                     Giriş Yap
