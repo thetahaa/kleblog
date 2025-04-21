@@ -4,23 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Post::where('status', true)
+        // Sorguyu doğru şekilde oluşturma
+        $query = Post::published()
             ->with(['categories', 'tags', 'comments.user'])
             ->withCount(['comments' => fn($q) => $q->where('status', true)]);
 
-        // Kategori Filtresi
+        // Kategori Filtresi (Collection değil Query üzerinde)
         if ($request->category) {
             $query->whereHas('categories', fn($q) => $q->where('slug', $request->category));
         }
@@ -30,7 +26,7 @@ class PostController extends Controller
             $query->whereHas('tags', fn($q) => $q->where('slug', $request->tag));
         }
 
-        // Popüler/Yeni Filtresi
+        // Sıralama Mantığı
         $query->when($request->has('filter'), function($q) use ($request) {
             $request->filter === 'popüler' 
                 ? $q->orderByDesc('comments_count')
@@ -39,16 +35,33 @@ class PostController extends Controller
             $q->latest();
         });
 
+        // Sorguyu çalıştırma (pagination YOK)
+        $posts = $query->get();
+
         return response()->json([
-            'success' => true,
-            'data' => $query->get()
+            'data' => $posts,
+            'message' => 'Postlar başarıyla getirildi'
         ]);
     }
 
-    public function show($id)
-    {
-        $posts = Post::with(['categories', 'tags', 'comments.user'])->findOrFail($id)->toArray();;
-        return response()->json($posts);
-    }
+    public function show($id)  
+    {  
+        try {
+            $posts = Post::published()  
+                ->with(['categories', 'tags', 'comments.user'])  
+                ->findOrFail($id);  
+
+            return response()->json([  
+                'data' => $posts,  
+                'message' => 'Post başarıyla getirildi',  
+            ], 200);  
+
+        } catch (ModelNotFoundException $e) {  
+            return response()->json([  
+                'error' => 'Post bulunamadı',  
+                'debug_id' => 'POST_404_' . $id  
+            ], 404);  
+        }  
+    }  
 
 }

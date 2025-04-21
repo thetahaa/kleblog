@@ -62,4 +62,16 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+}
+
+class Kernel extends ConsoleKernel {
+    protected $commands = [\App\Console\Commands\UpdatePostStatus::class];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('posts:update-status')
+            ->everyFiveMinutes()
+            ->withoutOverlapping();
+    }
 }

@@ -1,91 +1,279 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>Admin | Yeni Yorumlar</title>
+    <style>
+        :root {
+            --bg-dark: #111827;
+            --bg-medium: #1F2937;
+            --bg-light: #374151;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #818CF8;
+            --border-color: #4B5563;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .header {
+            background-color: var(--bg-medium);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-button:hover {
+            color: var(--text-primary);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--bg-light);
+            border-radius: 0.375rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-width: 12rem;
+            padding: 0.25rem 0;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .main-content {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .comment-container {
+            background-color: var(--bg-medium);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .comment-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-card {
+            background-color: var(--bg-light);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .comment-time {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .comment-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .post-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .post-link:hover {
+            color: #A5B4FC;
+        }
+
+        .footer {
+            background-color: var(--bg-medium);
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin: 0.5rem 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        .divider {
+            color: var(--text-secondary);
+        }
+
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .border-top {
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .space-x-2 > * + * {
+            margin-left: 0.5rem;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 min-h-screen flex flex-col">
-    <header class="bg-gray-800 shadow-sm sticky top-0 z-50">
-        <nav class="max-w-6xl mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a class="text-2xl font-bold text-gray-300">Yorum Bildirimleri</a>
-                <div class="flex items-center gap-6">
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-content">
+                <a class="logo">Yorum Bildirimleri</a>
+                <div class="flex items-center">
                     <div class="relative">
-                        <button id="menuButton" class="flex items-center space-x-1 text-gray-300 hover:text-white">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button id="menuButton" class="menu-button">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
                             </svg>
                         </button>
 
-                        <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-700 text-white rounded-md shadow-lg py-1">
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-800 flex items-center space-x-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/>
-                                    </svg>
-                                    <span>Çıkış Yap</span>
-                                </button>
-                            </form>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
-        <div class="bg-gray-800 rounded-lg shadow-md p-6">
-            <h1 class="text-2xl font-bold text-gray-100 mb-6">Yeni Yorum Bildirimleri</h1>
+    <main class="main-content">
+        <div class="comment-container">
+            <h1 class="comment-title">Yeni Yorum Bildirimleri</h1>
             
-            <div class="space-y-4">
-                @foreach($comments as $comment)
-                <div class="bg-gray-700 rounded-lg p-4 shadow-sm">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center space-x-3">
+            <div class="comment-list">
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <div class="user-info">
                             <span class="text-indigo-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
                                 </svg>
                             </span>
-                            <h3 class="text-lg font-semibold text-gray-100">{{ $comment->user->name }}</h3>
                         </div>
-                        <span class="text-sm text-gray-400">{{ $comment->created_at->diffForHumans() }}</span>
                     </div>
                     
-                    <div class="mb-4">
-                        <p class="text-gray-300 text-sm leading-relaxed">{{ $comment->content }}</p>
+                    <div class="comment-text">
                     </div>
                     
-                    <div class="border-t border-gray-600 pt-3">
-                        <div class="flex items-center space-x-2 text-sm">
+                    <div class="border-top">
+                        <div class="flex items-center space-x-2">
                             <span class="text-gray-400">İlgili Post:</span>
-                            <a href="{{ route('post.show', $comment->post->id) }}" class="text-indigo-400 hover:text-indigo-300">
-                                {{ $comment->post->title }}
+                            <a href="{{ route('post.show', $comment->post->id) }}" class="post-link">
                             </a>
                         </div>
                     </div>
                 </div>
-                @endforeach
             </div>
         </div>
     </main>
 
-    <footer class="bg-gray-800 border-t border-gray-700 mt-auto">
-        <div class="max-w-6xl mx-auto px-4 py-6">
-            <div class="flex flex-col items-center space-y-2">
-                <p class="text-xs text-gray-400 text-center">
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-inner">
+                <p class="footer-text">
                     © 2025 Blog. Tüm hakları saklıdır.
                 </p>
-                <div class="flex space-x-4">
-                    <a href="/kvkk" class="text-gray-400 hover:text-gray-300 text-xs transition-colors">
+                <div class="footer-links">
+                    <a href="/kvkk" class="footer-link">
                         KVKK
                     </a>
-                    <span class="text-gray-400 text-xs">|</span>
-                    <a href="/gizlilik-politikasi" class="text-gray-400 hover:text-gray-300 text-xs transition-colors">
+                    <span class="divider">|</span>
+                    <a href="/gizlilik-politikasi" class="footer-link">
                         Gizlilik Politikası
                     </a>
                 </div>
@@ -100,15 +288,17 @@
         if(menuButton && dropdownMenu) {
             menuButton.addEventListener('click', (e) => {
                 e.stopPropagation();
-                dropdownMenu.classList.toggle('hidden');
+                dropdownMenu.classList.toggle('show');
             });
             
             document.addEventListener('click', (event) => {
                 if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.classList.add('hidden');
+                    dropdownMenu.classList.remove('show');
                 }
             });
         }
     </script>
 </body>
-</html>
+</html> -->
+
+<h3>Yeni Yorum Geldi!</h3>

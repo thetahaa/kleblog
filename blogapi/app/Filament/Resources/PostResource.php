@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use Filament\Forms;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -48,15 +49,26 @@ class PostResource extends Resource
                     ->preload()
                     ->label('Kategoriler'),
 
-                Forms\Components\DateTimePicker::make('start_date')
-                    ->label('Başlangıç Tarihi'),
+                Forms\Components\DateTimePicker::make('publish_at')
+                    ->label('Başlangıç Tarihi')
+                    ->default(now())
+                    ->seconds(false)
+                    ->timezone('Europe/Istanbul')
+                    ->required(),
 
-                Forms\Components\DateTimePicker::make('end_date')
-                    ->label('Bitiş Tarihi'),
+                Forms\Components\DateTimePicker::make('expire_at')
+                    ->label('Bitiş Tarihi')
+                    ->seconds(false)
+                    ->timezone('Europe/Istanbul')
+                    ->minDate(function (Get $get) {
+                        return $get('publish_at') ?: now();
+                    })
+                    ->required(),
 
                 Forms\Components\Toggle::make('status')
                     ->label('Aktiflik')
                     ->required()
+                    ->default(true)
                     ->onColor('success')
                     ->offColor('danger'),
 
@@ -80,13 +92,15 @@ class PostResource extends Resource
                     ->height(60),
                 Tables\Columns\BooleanColumn::make('status')->label('Aktiflik'),
 
-                Tables\Columns\TextColumn::make('start_date')
+                Tables\Columns\TextColumn::make('publish_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('end_date')
+                Tables\Columns\TextColumn::make('expire_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

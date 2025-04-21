@@ -20,7 +20,6 @@ class NewCommentNotification extends Mailable
 
     public function build()
     {
-        return $this->subject('Yeni Yorum Geldi!')
-                    ->view('emails.new_comment_notification');
+        return $this->subject('Yeni Yorum Geldi!')->view('emails.new_comment_notification');
     }
 }
