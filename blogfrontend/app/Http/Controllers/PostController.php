@@ -29,25 +29,30 @@ class PostController extends Controller
             return view('post.index')->with('error', $e->getMessage());
         }
     }
+    
     public function show($id)
     {
         try {
             $response = Http::timeout(1000)
                 ->withToken(session('token'))
-                ->get("http://api_nginx/api/posts/$id");
+                ->get("http://api_nginx/api/posts/{$id}");
 
             if (!$response->successful()) {
-                throw new \Exception('Post bulunamadı');
+                throw new \Exception('Post bulunamadı veya yetkiniz yok');
             }
 
-            $posts = $response->json();
+            $responseData = $response->json();
+            
+            if (!isset($responseData['data'])) {
+                throw new \Exception('Geçersiz veri formatı');
+            }
 
             return view('post.show', [
-                'posts' => $posts
+                'posts' => $responseData['data']
             ]);
 
         } catch (\Exception $e) {
-            return redirect()->route('post.index')->with('error', $e->getMessage());
+            return redirect()->route('post.index')->withErrors($e->getMessage());
         }
     }
     
