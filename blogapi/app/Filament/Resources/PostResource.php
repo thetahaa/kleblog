@@ -47,7 +47,6 @@ class PostResource extends Resource
                         Forms\Components\FileUpload::make('image')
                             ->label('Resim')
                             ->image()
-                            ->directory('posts')
                             ->imagePreviewHeight(90)
                             ->columnSpan(1),
                     ])
