@@ -33,7 +33,3 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('kvkk', [PrivacyPolicyController::class, 'kvkk']);
     Route::get('gizlilik-politikasi', [PrivacyPolicyController::class, 'privacyPolicy']);
 });
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});

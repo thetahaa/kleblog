@@ -11,22 +11,18 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        // Sorguyu doğru şekilde oluşturma
         $query = Post::published()
             ->with(['categories', 'tags', 'comments.user'])
             ->withCount(['comments' => fn($q) => $q->where('status', true)]);
 
-        // Kategori Filtresi (Collection değil Query üzerinde)
         if ($request->category) {
             $query->whereHas('categories', fn($q) => $q->where('slug', $request->category));
         }
 
-        // Etiket Filtresi
         if ($request->tag) {
             $query->whereHas('tags', fn($q) => $q->where('slug', $request->tag));
         }
 
-        // Sıralama Mantığı
         $query->when($request->has('filter'), function($q) use ($request) {
             $request->filter === 'popüler' 
                 ? $q->orderByDesc('comments_count')
@@ -35,7 +31,6 @@ class PostController extends Controller
             $q->latest();
         });
 
-        // Sorguyu çalıştırma (pagination YOK)
         $posts = $query->get();
 
         return response()->json([

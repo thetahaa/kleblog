@@ -31,51 +31,68 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label('Başlık')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Fieldset::make('Başlık & İçerik & Resim')
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->label('Başlık')
+                            ->required()
+                            ->columnSpan(2),
+                            
+                        Forms\Components\Textarea::make('content')
+                            ->label('İçerik')
+                            ->required()
+                            ->rows(3)
+                            ->columnSpan(1),
+
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Resim')
+                            ->image()
+                            ->directory('posts')
+                            ->imagePreviewHeight(90)
+                            ->columnSpan(1),
+                    ])
+                    ->columns(2),
                 
-                Forms\Components\Textarea::make('content')
-                    ->label('İçerik')
-                    ->required()
-                    ->maxLength(10000),
-                Forms\Components\FileUpload::make('image')
-                    ->label('Resim')
-                    ->image()
-                    ->required(),
-                Forms\Components\Select::make('categories')
-                    ->relationship('categories', 'name')
-                    ->preload()
-                    ->label('Kategoriler'),
+                Forms\Components\Fieldset::make('Kategoriler ve Etiketler')
+                    ->schema([
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Select::make('categories')
+                                    ->relationship('categories', 'name')
+                                    ->label('Kategoriler')
+                                    ->preload()
+                                    ->searchable()
+                                    ->required(),
+                                    
+                                Forms\Components\MultiSelect::make('tags')
+                                    ->relationship('tags', 'name')
+                                    ->label('Etiketler')
+                                    ->preload()
+                                    ->searchable()
+                            ])
+                            ->columns(2)
+                    ]),
 
-                Forms\Components\DateTimePicker::make('publish_at')
-                    ->label('Başlangıç Tarihi')
-                    ->default(now())
-                    ->seconds(false)
-                    ->timezone('Europe/Istanbul')
-                    ->required(),
-
-                Forms\Components\DateTimePicker::make('expire_at')
-                    ->label('Bitiş Tarihi')
-                    ->seconds(false)
-                    ->timezone('Europe/Istanbul')
-                    ->minDate(function (Get $get) {
-                        return $get('publish_at') ?: now();
-                    })
-                    ->required(),
-
-                Forms\Components\Toggle::make('status')
-                    ->label('Aktiflik')
-                    ->required()
-                    ->default(true)
-                    ->onColor('success')
-                    ->offColor('danger'),
-
-                Forms\Components\MultiSelect::make('tags')
-                    ->relationship('tags', 'name')
-                    ->preload()
-                    ->label('Etiketler'),
+                Forms\Components\Fieldset::make('Tarih')
+                    ->schema([
+                        Forms\Components\DateTimePicker::make('publish_at')
+                            ->label('Başlangıç Tarihi')
+                            ->default(now())
+                            ->seconds(false)
+                            ->required(),
+                            
+                        Forms\Components\DateTimePicker::make('expire_at')
+                            ->label('Bitiş Tarihi')
+                            ->seconds(false)
+                            ->required(),
+                            
+                        Forms\Components\Toggle::make('status')
+                            ->label('Aktif')
+                            ->onColor('success')
+                            ->offColor('danger')
+                            ->default(true)
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -84,8 +101,14 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->label('Başlık'),
-                Tables\Columns\TextColumn::make('categories.name')->label('Kategoriler'),
-                Tables\Columns\TextColumn::make('tags.name')->label('Etiketler'),
+                Tables\Columns\TextColumn::make('categories.name')
+                    ->label('Kategoriler')
+                    ->badge()
+                    ->color('primary'),
+                Tables\Columns\TextColumn::make('tags.name')
+                    ->label('Etiketler')
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Resim')
                     ->disk('public')
