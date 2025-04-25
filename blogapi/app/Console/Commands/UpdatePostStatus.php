@@ -21,6 +21,9 @@ class UpdatePostStatus extends Command
      */
     public $description = 'posts:update-status';
 
+     /**
+     * Execute the console command.
+     */
     public function handle() {
         Post::where(function($query) {
             $query->where('publish_at', '<=', now())

@@ -60,8 +60,7 @@ class PostResource extends Resource
                                     ->relationship('categories', 'name')
                                     ->label('Kategoriler')
                                     ->preload()
-                                    ->searchable()
-                                    ->required(),
+                                    ->searchable(),
                                     
                                 Forms\Components\MultiSelect::make('tags')
                                     ->relationship('tags', 'name')
@@ -78,11 +77,13 @@ class PostResource extends Resource
                             ->label('Başlangıç Tarihi')
                             ->default(now())
                             ->seconds(false)
+                            ->timezone('Europe/Istanbul')
                             ->required(),
                             
                         Forms\Components\DateTimePicker::make('expire_at')
                             ->label('Bitiş Tarihi')
                             ->seconds(false)
+                            ->timezone('Europe/Istanbul')
                             ->required(),
                             
                         Forms\Components\Toggle::make('status')
