@@ -30,7 +30,6 @@ class LoginController extends Controller
 
     $errors = [];
     
-    // API'den gelen tüm hataları işleme
     if ($response->status() === 422 || $response->status() === 401) {
         $errorData = $response->json();
         $errors = $errorData['errors'] ?? [];
