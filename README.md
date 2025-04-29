@@ -1,4 +1,4 @@
-# Laravel + Filament ile Geliştirilmiş Blog Sitesi
+# ![Laravel Logo](https://laravel.com/img/logomark.min.svg) Laravel + Filament ile Geliştirilmiş Blog Sitesi
 
 Bu proje, Laravel ve Filament Admin Paneli kullanılarak oluşturulmuş bir blog platformudur. Kullanıcılar yazılar ekleyebilir, yorum yapabilir ve içerikleri kategorilere göre filtreleyebilir. Projede hem güçlü bir CMS (İçerik Yönetim Sistemi) hem de kullanıcı dostu bir frontend yapısı bulunmaktadır.
 
