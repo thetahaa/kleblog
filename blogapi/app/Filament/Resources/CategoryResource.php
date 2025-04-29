@@ -37,7 +37,9 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Category Name')
-                    ->searchable(),
+                    ->searchable()
+                    ->badge()
+                    ->color('primary'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

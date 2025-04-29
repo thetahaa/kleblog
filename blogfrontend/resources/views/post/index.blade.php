@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('images/logo4.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .post-card {
+            animation: cardEntrance 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+    </style>
     <title>Kle | Blog</title>
 </head>
 <body class="bg-gray-900 min-h-screen flex flex-col">
@@ -182,40 +201,48 @@
     <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @if(!empty($posts) && count($posts) > 0)
-                @foreach($posts as $post)
-                    <article class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                        <a href="{{ route('post.show', $post['id']) }}">
-                            <img src="{{ ('http://localhost:8000' .'/'.$post['image']) }}" class="w-full h-48 object-cover">
-                        </a>
-                        <div class="p-4">
-                            @if(isset($post['categories']) && count($post['categories']) > 0)
-                                <span class="inline-block px-2 py-1 bg-gray-700 text-gray-300 text-sm rounded-full mb-2">
-                                    {{ $post['categories'][0]['name'] ?? '' }}
-                                </span>
-                            @endif
-                            
-                            <h2 class="text-xl font-bold text-gray-100 mb-2">
-                                <a href="{{ route('post.show', $post['id']) }}" class="hover:text-gray-300">{{ $post['title'] }}</a>
-                            </h2>
-                            
-                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
-                                <a href="{{ route('post.show', $post['id']) }}">
-                                    {{ $post['content'] }}
-                                </a>
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                @foreach($post['tags'] ?? [] as $tag)
-                                    <span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full inline-flex items-center gap-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-                                        </svg>
-                                        {{ $tag['name'] ?? '' }}
-                                    </span>
-                                @endforeach
+                @foreach($posts as $index => $post)
+                    <article class="post-card bg-gray-800 rounded-lg shadow-md overflow-hidden 
+                                  transform transition-all duration-200 hover:scale-[0.90]
+                                  @if($index % 3 == 1) delay-1 @endif
+                                  @if($index % 3 == 2) delay-2 @endif">
+                        <a href="{{ route('post.show', $post['id']) }}" class="block relative group">
+                            <div class="relative overflow-hidden">
+                                <img src="{{ ('http://localhost:8000' .'/'.$post['image']) }}" 
+                                     class="w-full h-48 object-cover transition-transform duration-200 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t"></div>
                             </div>
-                        </div>
+                            <div class="p-4">
+                                @if(isset($post['categories']) && count($post['categories']) > 0)
+                                    <span class="inline-block px-2 py-1 bg-gray-700 text-gray-300 text-sm rounded-full mb-2 
+                                              transition-all duration-300 hover:bg-indigo-600">
+                                        {{ $post['categories'][0]['name'] ?? '' }}
+                                    </span>
+                                @endif
+                                
+                                <h2 class="text-xl font-bold text-gray-100 mb-2 transition-colors duration-300 group-hover:text-indigo-400">
+                                    {{ $post['title'] }}
+                                </h2>
+                                
+                                <p class="text-gray-400 text-sm mb-4 line-clamp-3 transition-opacity duration-300 group-hover:opacity-80">
+                                    {{ strip_tags($post['content']) }}
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    @foreach($post['tags'] ?? [] as $tag)
+                                        <span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full 
+                                                  inline-flex items-center gap-1 transition-all duration-300 
+                                                  hover:bg-indigo-600 hover:scale-105">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                            </svg>
+                                            {{ $tag['name'] ?? '' }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </a>
                     </article>
                 @endforeach
             @else
@@ -247,8 +274,21 @@
     </footer>
 
     <script>
+        // Animasyonları tetikleme
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.post-card').forEach((card) => {
+            observer.observe(card);
+        });
+
+        // Filtreleme fonksiyonları
         const filterToggle = document.getElementById('filterToggle');
-        
         const filterDropdown = document.getElementById('filterDropdown');
         let isForceOpened = false;
 
@@ -268,6 +308,7 @@
                     filterDropdown.classList.remove('max-h-[500px]', 'py-4');
                 }
             };
+            
             filterToggle.addEventListener('mouseleave', handleHoverClose);
             filterDropdown.addEventListener('mouseleave', handleHoverClose);
 
@@ -293,21 +334,18 @@
             });
         }
 
+        // Mobil filtre
         const mobileFilterToggle = document.getElementById('mobileFilterToggle');
         const mobileFilterContent = document.getElementById('mobileFilterContent');
         if(mobileFilterToggle) {
             mobileFilterToggle.addEventListener('click', () => {
                 const isOpen = mobileFilterContent.classList.contains('max-h-0');
-                if(isOpen) {
-                    mobileFilterContent.classList.remove('max-h-0');
-                    mobileFilterContent.classList.add('max-h-[1000px]');
-                } else {
-                    mobileFilterContent.classList.remove('max-h-[1000px]');
-                    mobileFilterContent.classList.add('max-h-0');
-                }
+                mobileFilterContent.classList.toggle('max-h-0');
+                mobileFilterContent.classList.toggle('max-h-[1000px]');
             });
         }
 
+        // Menü toggle
         const menuButton = document.getElementById('menuButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
         if(menuButton && dropdownMenu) {

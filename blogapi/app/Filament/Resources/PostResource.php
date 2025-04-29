@@ -100,7 +100,10 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->label('Başlık'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Başlık')
+                    ->badge()
+                    ->color('warning'),
                 Tables\Columns\TextColumn::make('categories.name')
                     ->label('Kategoriler')
                     ->badge()
