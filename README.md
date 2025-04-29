@@ -49,7 +49,7 @@ Bu proje iki ayrı uygulamadan oluşur:
 
 ## 🛠 Kullanılan Teknolojiler
 
-- **Laravel 10+**
+- **Laravel 11**
 - **Filament Admin Paneli**
 - **Laravel Sanctum** (API kimlik doğrulama)
 - **Tailwind CSS** (Frontend tasarımı)
@@ -90,10 +90,10 @@ php artisan queue:work
 
 # Schedule cron ayarını unutmayın
 
+```
+
 ### 2️⃣ Frontend Projesi (blogfrontend)
-bash
-Kopyala
-Düzenle
+```bash
 git clone https://github.com/thetahaa/kleblog.git
 cd blogfrontend
 
