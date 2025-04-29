@@ -119,21 +119,25 @@ class PostResource extends Resource
                 Tables\Columns\BooleanColumn::make('status')->label('Aktiflik'),
 
                 Tables\Columns\TextColumn::make('publish_at')
+                    ->label('Başlangıç Tarihi')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('expire_at')
+                    ->label('Bitiş Tarihi')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Oluşturulma Tarihi')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                     
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Güncellenme Tarihi')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

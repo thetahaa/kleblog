@@ -36,7 +36,7 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Category Name')
+                    ->label('Kategori İsmi')
                     ->searchable()
                     ->badge()
                     ->color('primary'),

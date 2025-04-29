@@ -39,7 +39,7 @@ class PrivacyPolicyResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Policy Name')
+                Tables\Columns\TextColumn::make('name')->label('Politika')
                 ->limit(115),
             ])
             ->filters([
@@ -47,11 +47,9 @@ class PrivacyPolicyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
