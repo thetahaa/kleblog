@@ -1,4 +1,4 @@
-# ![Laravel Logo](https://laravel.com/img/logomark.min.svg) Laravel + Filament ile Geliştirilmiş Blog Sitesi
+<h1><img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="30" style="vertical-align: middle;"> Laravel + Filament ile Geliştirilmiş Blog Sitesi</h1>
 
 Bu proje, Laravel ve Filament Admin Paneli kullanılarak oluşturulmuş bir blog platformudur. Kullanıcılar yazılar ekleyebilir, yorum yapabilir ve içerikleri kategorilere göre filtreleyebilir. Projede hem güçlü bir CMS (İçerik Yönetim Sistemi) hem de kullanıcı dostu bir frontend yapısı bulunmaktadır.
 
