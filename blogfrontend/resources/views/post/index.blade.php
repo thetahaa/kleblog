@@ -103,10 +103,12 @@
                     </div>
 
                     @if(request()->has('category') || request()->has('tag'))
-                    <div class="flex justify-end">
-                        <a href="?{{ http_build_query(request()->except(['category', 'tag'])) }}" 
-                           class="px-3 py-1 text-sm text-red-400 hover:text-red-300 transition-colors">
-                            Kategori/Etiket Temizle
+                    <div class="flex justify-end -mt-2">
+                        <a href="?{{ http_build_query(request()->except(['category', 'tag'])) }}" class="flex items-center gap-1 text-red-400 hover:text-red-300 text-sm px-2 py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                            </svg>
+                            <span>Temizle</span>
                         </a>
                     </div>
                     @endif
@@ -161,12 +163,14 @@
         <div id="filterDropdown" class="bg-gray-800 border-t border-gray-700 overflow-hidden transition-all duration-300 max-h-0">
             <div class="max-w-6xl mx-auto px-4 py-4">
                 @if(request()->has('category') || request()->has('tag'))
-                <div class="mb-4 flex justify-end">
-                    <a href="?{{ http_build_query(request()->except(['category', 'tag'])) }}" 
-                       class="px-3 py-1 text-sm text-red-400 hover:text-red-300 transition-colors">
-                        Kategori/Etiket Temizle
-                    </a>
-                </div>
+                    <div class="mb-2 flex justify-end">
+                        <a href="?{{ http_build_query(request()->except(['category', 'tag'])) }}" class="flex items-center gap-1 text-red-400 hover:text-red-300 text-sm px-2 py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                            </svg>
+                            <span>Temizle</span>
+                        </a>
+                    </div>
                 @endif
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -274,7 +278,6 @@
     </footer>
 
     <script>
-        // Animasyonları tetikleme
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -287,7 +290,6 @@
             observer.observe(card);
         });
 
-        // Filtreleme fonksiyonları
         const filterToggle = document.getElementById('filterToggle');
         const filterDropdown = document.getElementById('filterDropdown');
         let isForceOpened = false;
@@ -334,7 +336,6 @@
             });
         }
 
-        // Mobil filtre
         const mobileFilterToggle = document.getElementById('mobileFilterToggle');
         const mobileFilterContent = document.getElementById('mobileFilterContent');
         if(mobileFilterToggle) {
@@ -345,7 +346,6 @@
             });
         }
 
-        // Menü toggle
         const menuButton = document.getElementById('menuButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
         if(menuButton && dropdownMenu) {
