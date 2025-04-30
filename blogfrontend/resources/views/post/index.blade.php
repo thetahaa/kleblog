@@ -257,7 +257,7 @@
         <div class="max-w-6xl mx-auto px-4 py-6">
             <div class="flex flex-col items-center space-y-2">
                 <p class="text-xs text-gray-400 text-center">
-                    © 2025 Blog. Tüm hakları saklıdır.
+                    © {{ now()->year }} Blog. Tüm hakları saklıdır.
                 </p>
                 
                 <div class="flex space-x-4">
