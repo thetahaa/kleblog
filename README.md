@@ -57,9 +57,9 @@ Bu proje iki ayrı uygulamadan oluşur:
 
 ---
 
-## 🐳 <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker" width="30" style="vertical-align: middle;"> Docker ile Hızlı Kurulum
+## <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" width="30" style="vertical-align: middle;"> Docker ile Hızlı Kurulum
 
-### Ön Koşullar
+### ⚙️ Ön Koşullar
 - Docker ve Docker Compose kurulu olmalıdır
 
 ### 1️⃣ API Projesi (blogapi)
