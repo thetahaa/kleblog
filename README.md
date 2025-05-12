@@ -1,4 +1,4 @@
-<h1><img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="27" style="vertical-align: middle;"> Laravel + Filament ile Geliştirilmiş Blog Sitesi</h1>
+<h1><img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="26" style="vertical-align: middle;"> Laravel + Filament ile Geliştirilmiş Blog Sitesi</h1>
 
 Bu proje, Laravel ve Filament Admin Paneli kullanılarak oluşturulmuş bir blog platformudur. Kullanıcılar yazılar ekleyebilir, yorum yapabilir ve içerikleri kategorilere göre filtreleyebilir. Projede hem güçlü bir CMS (İçerik Yönetim Sistemi) hem de kullanıcı dostu bir frontend yapısı bulunmaktadır.
 
@@ -57,7 +57,7 @@ Bu proje iki ayrı uygulamadan oluşur:
 
 ---
 
-## <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" width="30" style="vertical-align: middle;"> Docker ile Hızlı Kurulum
+## <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker" width="30" style="vertical-align: middle;"> Docker ile Hızlı Kurulum
 
 ### ⚙️ Ön Koşullar
 - Docker ve Docker Compose kurulu olmalıdır
@@ -110,5 +110,6 @@ npm run dev
 ```
 
 ## 🌍 Tarayıcıda erişim
+- PhpMyAdmin: http://localhost:8081
 - Admin Panel: http://localhost:8000
 - Frontend: http://localhost:8003
