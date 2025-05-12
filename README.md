@@ -57,7 +57,7 @@ Bu proje iki ayrı uygulamadan oluşur:
 
 ---
 
-## ✨️ Docker ile Hızlı Kurulum
+## 🐳 <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker" width="30" style="vertical-align: middle;"> Docker ile Hızlı Kurulum
 
 ### Ön Koşullar
 - Docker ve Docker Compose kurulu olmalıdır
@@ -109,6 +109,6 @@ npm run dev
 
 ```
 
-# 🌍 Tarayıcıda erişim
+## 🌍 Tarayıcıda erişim
 - Admin Panel: http://localhost:8000
 - Frontend: http://localhost:8003
