@@ -1,4 +1,4 @@
-<h1><img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="26" style="vertical-align: middle;"> Laravel + Filament ile Geliştirilmiş Blog Sitesi</h1>
+<h1><img src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="25" style="vertical-align: middle;"> Laravel + Filament ile Geliştirilmiş Blog Sitesi</h1>
 
 Bu proje, Laravel ve Filament Admin Paneli kullanılarak oluşturulmuş bir blog platformudur. Kullanıcılar yazılar ekleyebilir, yorum yapabilir ve içerikleri kategorilere göre filtreleyebilir. Projede hem güçlü bir CMS (İçerik Yönetim Sistemi) hem de kullanıcı dostu bir frontend yapısı bulunmaktadır.
 
@@ -73,7 +73,7 @@ cd blogapi
 docker-compose up -d
 
 # API Container'a giriş yapın
-docker-compose exec -it api_app bash
+docker exec -it api_app bash
 cd html
 
 # Bağımlılıkların yüklenmesi
