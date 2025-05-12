@@ -61,13 +61,15 @@ class LoginController extends Controller
     public function logout(Request $request): JsonResponse
     {
         try {
-            $request->user()->tokens()->delete();
+            $request->user()->currentAccessToken()->delete();
+
             return response()->json([
                 'message' => 'Başarıyla çıkış yapıldı'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Çıkış sırasında hata oluştu'
+                'message' => 'Çıkış sırasında hata oluştu',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

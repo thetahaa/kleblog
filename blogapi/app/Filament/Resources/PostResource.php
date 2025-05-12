@@ -46,6 +46,7 @@ class PostResource extends Resource
 
                         Forms\Components\FileUpload::make('image')
                             ->label('Resim')
+                            ->required()
                             ->image()
                             ->imagePreviewHeight(90)
                             ->columnSpan(1),
@@ -62,9 +63,10 @@ class PostResource extends Resource
                                     ->preload()
                                     ->searchable(),
                                     
-                                Forms\Components\MultiSelect::make('tags')
+                                Forms\Components\Select::make('tags')
                                     ->relationship('tags', 'name')
                                     ->label('Etiketler')
+                                    ->multiple()
                                     ->preload()
                                     ->searchable()
                             ])
@@ -90,7 +92,7 @@ class PostResource extends Resource
                             ->label('Aktif')
                             ->onColor('success')
                             ->offColor('danger')
-                            ->default(true)
+                            ->default(true),
                     ])
                     ->columns(2),
             ]);
@@ -116,7 +118,13 @@ class PostResource extends Resource
                     ->label('Resim')
                     ->disk('public')
                     ->height(60),
-                Tables\Columns\BooleanColumn::make('status')->label('Aktiflik'),
+                Tables\Columns\IconColumn::make('status')
+                    ->boolean()
+                    ->label('Aktiflik')
+                    ->getStateUsing(function ($record) {
+                        return $record->publish_at <= now() && 
+                               ($record->expire_at === null || $record->expire_at > now());
+                    }),
 
                 Tables\Columns\TextColumn::make('publish_at')
                     ->label('Başlangıç Tarihi')

@@ -24,14 +24,23 @@ class UpdatePostStatus extends Command
      /**
      * Execute the console command.
      */
-    public function handle() {
-        Post::where(function($query) {
-            $query->where('publish_at', '<=', now())
-                  ->orWhereNull('publish_at');
-        })->where('status', false)
-          ->update(['status' => true]);
-    
-        Post::where('expire_at', '<=', now())
+    public function handle()
+    {
+        Post::where('publish_at', '<=', now())
+            ->where(function ($q) {
+                $q->where('expire_at', '>', now())
+                ->orWhereNull('expire_at');
+            })
+            ->where('status', false)
+            ->update(['status' => true]);
+
+        Post::where(function ($query) {
+                $query->where('publish_at', '>', now())
+                    ->orWhere(function ($q) {
+                        $q->whereNotNull('expire_at')
+                            ->where('expire_at', '<=', now());
+                    });
+            })
             ->where('status', true)
             ->update(['status' => false]);
     }
