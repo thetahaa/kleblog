@@ -57,24 +57,27 @@ Bu proje iki ayrı uygulamadan oluşur:
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+## ✨️ Docker ile Hızlı Kurulum
 
-### 1️⃣ API Projesi (blogapi)
+### Ön Koşullar
+- Docker ve Docker Compose kurulu olmalıdır
+
+#### 1️⃣ API Projesi (blogapi)
 
 ```bash
+# Projeyi klonlayın
 git clone https://github.com/thetahaa/kleblog.git
 cd blogapi
 
+# Docker ortamını başlatın
+docker-compose up -d
+
+# API Container'a giriş yapın
+docker-compose exec -it api_app bash
+cd html
+
 # Bağımlılıkların yüklenmesi
 composer install
-
-# .env dosyasını oluşturun
-cp .env.example .env
-
-# .env dosyasını kendi veritabanı bilgilerinizle düzenleyin
-
-# Uygulama anahtarını oluşturun
-php artisan key:generate
 
 # Migration + Seeder
 php artisan migrate:fresh --seed
@@ -88,14 +91,15 @@ php artisan storage:link
 # Queue çalıştırma
 php artisan queue:work
 
-# Schedule cron ayarını unutmayın
-
 ```
 
-### 2️⃣ Frontend Projesi (blogfrontend)
+#### 2️⃣ Frontend Projesi (blogfrontend)
 ```bash
 git clone https://github.com/thetahaa/kleblog.git
 cd blogfrontend
+
+# Docker ortamını başlatın
+docker-compose up -d
 
 # Bağımlılıkların yüklenmesi
 npm install
@@ -103,4 +107,8 @@ npm install
 # Tailwind'i derleyin
 npm run dev
 
-# .env dosyasını API URL'ine göre yapılandırın
+```
+
+# 🌍 Tarayıcıda erişim
+- Admin Panel: http://localhost:8000
+- Frontend: http://localhost:8003
