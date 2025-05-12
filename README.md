@@ -62,7 +62,7 @@ Bu proje iki ayrı uygulamadan oluşur:
 ### Ön Koşullar
 - Docker ve Docker Compose kurulu olmalıdır
 
-#### 1️⃣ API Projesi (blogapi)
+### 1️⃣ API Projesi (blogapi)
 
 ```bash
 # Projeyi klonlayın
@@ -93,7 +93,7 @@ php artisan queue:work
 
 ```
 
-#### 2️⃣ Frontend Projesi (blogfrontend)
+### 2️⃣ Frontend Projesi (blogfrontend)
 ```bash
 git clone https://github.com/thetahaa/kleblog.git
 cd blogfrontend
