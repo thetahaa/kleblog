@@ -27,8 +27,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+Route::get('/logout', function () {return redirect('/');});
+
 Route::middleware([tokenmiddleware::class])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', function () {return redirect('/posts');});
     Route::get('posts', [PostController::class, 'index'])->name('post.index');
     Route::get('posts/{id}', [PostController::class, 'show'])->name('post.show');
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
