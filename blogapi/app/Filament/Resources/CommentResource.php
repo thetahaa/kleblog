@@ -57,6 +57,7 @@ class CommentResource extends Resource
                     
                 TextColumn::make('post.title')
                     ->label('Gönderi')
+                    ->limit(35)
                     ->sortable(),
                     
                 TextColumn::make('user.name')
