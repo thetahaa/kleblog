@@ -23,10 +23,16 @@ class PostController extends Controller
                 ]);
 
             $data = $response->json();
-            return view('post.index', ['posts' => $data['data'] ?? []]);
+            return view('post.index', [
+                'posts' => $data['data'] ?? [],
+                'error' => null
+            ]);
 
         } catch (\Exception $e) {
-            return view('post.index')->with('error', $e->getMessage());
+            return view('post.index', [
+                'posts' => [],
+                'error' => $e->getMessage()
+            ]);
         }
     }
     

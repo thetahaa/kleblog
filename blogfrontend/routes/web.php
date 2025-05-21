@@ -13,6 +13,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\tokenmiddleware;
 
+
 Route::get('/', function () {
     return view('data');
 });
@@ -21,11 +22,11 @@ Route::post('/', function () {
     return view('data');
 });
 
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', function () {return redirect('/');});
 

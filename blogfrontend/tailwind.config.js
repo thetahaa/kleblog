@@ -8,6 +8,7 @@ export default {
         './resources/**/*.blade.php',
         './resources/**/*.js',
         './resources/**/*.vue',
+        './src/**/*.{js,ts,jsx,tsx,html}',
     ],
     theme: {
         extend: {
@@ -16,5 +17,7 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/line-clamp'),
+    ],
 };
