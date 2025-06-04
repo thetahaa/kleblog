@@ -54,10 +54,9 @@
                     Profil Düzenle
                 </h1>
                 <a href="{{ route('post.index') }}" class="flex items-center space-x-2 text-gray-400 hover:text-blue-400 transition-colors group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/>
                     </svg>
-                    <span class="text-sm font-medium">Geri Dön</span>
                 </a>
             </div>
 
